@@ -87,9 +87,14 @@
   --ifm-alert-border-color: rgba(139, 92, 246, 0.3);
 }
 
-/* Footer — eliminate discolored gap above footer */
+/* Footer — match page background, override Docusaurus dark footer */
 .footer {
   border-top: 1px solid hsl(240, 6%, 15%);
+}
+
+.footer--dark {
+  --ifm-footer-background-color: hsl(240, 10%, 4%);
+  background-color: hsl(240, 10%, 4%);
 }
 
 [data-theme='dark'] .main-wrapper {
