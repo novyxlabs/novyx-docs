@@ -20,9 +20,9 @@ Complete reference for the Novyx Core API. 120+ endpoints across 19 routers.
 | [Search](/api-reference/search) | 1 | All | Semantic search with recency weighting |
 | [Rollback](/api-reference/rollback) | 2 | All | Point-in-time restore with preview |
 | [Audit](/api-reference/audit) | 2 | All | SHA-256 hashed operation logs |
-| [Spaces](/api-reference/spaces) | 3 | Pro+ | Memory namespaces for multi-agent teams |
+| [Spaces](/api-reference/spaces) | 6 | All | Memory namespaces for multi-agent teams |
 | [Traces](/api-reference/traces) | 8 | Pro+ | RSA-signed execution traces |
-| [Knowledge Graph](/api-reference/knowledge-graph) | 6 | Pro+ | Subject-predicate-object triples |
+| [Knowledge Graph](/api-reference/knowledge-graph) | 7 | Pro+ | Subject-predicate-object triples and entities |
 | [Replay](/api-reference/replay) | 6 | Pro+ | Time-travel debugging |
 | [Cortex](/api-reference/cortex) | 5 | Pro+ | Autonomous memory maintenance |
 | [Eval](/api-reference/eval) | 7 | All | Memory health scoring & CI/CD gates |
