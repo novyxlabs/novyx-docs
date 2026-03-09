@@ -1,0 +1,101 @@
+import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
+
+const sidebars: SidebarsConfig = {
+  docsSidebar: [
+    {
+      type: 'category',
+      label: 'Getting Started',
+      collapsed: false,
+      items: [
+        'getting-started/quickstart',
+        'getting-started/installation',
+        'getting-started/first-api-call',
+        'getting-started/authentication',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'API Reference',
+      collapsed: true,
+      link: { type: 'doc', id: 'api-reference/index' },
+      items: [
+        'api-reference/memories',
+        'api-reference/search',
+        'api-reference/rollback',
+        'api-reference/audit',
+        'api-reference/spaces',
+        'api-reference/traces',
+        'api-reference/knowledge-graph',
+        'api-reference/replay',
+        'api-reference/cortex',
+        'api-reference/eval',
+        'api-reference/webhooks',
+        'api-reference/teams',
+        'api-reference/milestones',
+        'api-reference/anomalies',
+        'api-reference/sharing',
+        'api-reference/api-keys',
+        'api-reference/export',
+        'api-reference/usage',
+        'api-reference/system',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'SDKs',
+      collapsed: true,
+      link: { type: 'doc', id: 'sdks/index' },
+      items: [
+        'sdks/python',
+        'sdks/typescript',
+        'sdks/cli',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'MCP Server',
+      collapsed: true,
+      link: { type: 'doc', id: 'mcp/index' },
+      items: [
+        'mcp/local-mode',
+        'mcp/cloud-mode',
+        'mcp/tools-reference',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Guides',
+      collapsed: true,
+      link: { type: 'doc', id: 'guides/index' },
+      items: [
+        'guides/rollback',
+        'guides/audit-trails',
+        'guides/eval',
+        'guides/memory-spaces',
+        'guides/knowledge-graph',
+        'guides/langchain',
+        'guides/crewai',
+        'guides/llamaindex',
+        'guides/cursor',
+        'guides/claude-code',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Concepts',
+      collapsed: true,
+      link: { type: 'doc', id: 'concepts/index' },
+      items: [
+        'concepts/how-memory-works',
+        'concepts/hash-chains',
+        'concepts/rsa-signing',
+        'concepts/conflict-resolution',
+        'concepts/circuit-breaker',
+      ],
+    },
+    'changelog',
+    'errors',
+  ],
+};
+
+export default sidebars;
