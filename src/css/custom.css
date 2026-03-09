@@ -87,9 +87,13 @@
   --ifm-alert-border-color: rgba(139, 92, 246, 0.3);
 }
 
-/* Footer */
+/* Footer — eliminate discolored gap above footer */
 .footer {
   border-top: 1px solid hsl(240, 6%, 15%);
+}
+
+[data-theme='dark'] .main-wrapper {
+  background-color: hsl(240, 10%, 4%);
 }
 
 /* Search */
