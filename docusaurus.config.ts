@@ -39,6 +39,14 @@ const config: Config = {
     ],
   ],
 
+  scripts: [
+    {
+      src: 'https://plausible.io/js/script.js',
+      defer: true,
+      'data-domain': 'docs.novyxlabs.com',
+    },
+  ],
+
   presets: [
     [
       'classic',
