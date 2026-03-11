@@ -41,9 +41,16 @@ const config: Config = {
 
   scripts: [
     {
-      src: 'https://plausible.io/js/script.js',
-      defer: true,
-      'data-domain': 'docs.novyxlabs.com',
+      src: 'https://plausible.io/js/pa-kYOApNHVLUYe_Ur3AHAA_.js',
+      async: true,
+    },
+  ],
+
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {},
+      innerHTML: `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`,
     },
   ],
 
