@@ -28,7 +28,7 @@ Persistent memory, semantic search, point-in-time rollback, and eval testing for
 
 <a href="/mcp" style={{display: 'block', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--ifm-toc-border-color)', textDecoration: 'none', color: 'inherit', transition: 'border-color 0.2s'}}>
   <h3 style={{margin: '0 0 0.5rem', color: 'var(--ifm-color-primary)'}}>MCP Server</h3>
-  <p style={{margin: 0, fontSize: '0.875rem', opacity: 0.7}}>23 tools for Cursor, Claude Code, and any MCP client. No API key needed.</p>
+  <p style={{margin: 0, fontSize: '0.875rem', opacity: 0.7}}>64 tools for Cursor, Claude Code, and any MCP client. No API key needed.</p>
 </a>
 
 <a href="/guides" style={{display: 'block', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--ifm-toc-border-color)', textDecoration: 'none', color: 'inherit', transition: 'border-color 0.2s'}}>
@@ -47,6 +47,6 @@ Persistent memory, semantic search, point-in-time rollback, and eval testing for
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 
-**Current version:** v3.0.0 ([changelog](/changelog))
+**Current version:** v3.0.1 ([changelog](/changelog))
 
 **Need help?** Join the [Discord](https://discord.gg/PCxZ3tMj) or email [support@novyxlabs.com](mailto:support@novyxlabs.com).
