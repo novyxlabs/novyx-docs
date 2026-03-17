@@ -116,6 +116,12 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
         },
+        {
+          href: 'https://novyxlabs.com/pricing',
+          label: 'Get Free API Key',
+          position: 'right',
+          className: 'navbar__link--cta',
+        },
       ],
     },
     footer: {
