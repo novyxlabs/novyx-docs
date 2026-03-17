@@ -29,13 +29,13 @@ Store a new memory. Returns the memory ID, content hash, and auto-link results.
 |-----------|------|----------|---------|-------------|
 | `observation` | string | **Yes** | — | The memory content |
 | `tags` | string[] | No | `[]` | Tags for filtering |
-| `importance` | number | No | `5` | Importance score (1–10) |
+| `importance` | integer | No | `5` | Importance score (integer 1–10) |
 | `context` | string | No | — | Additional context metadata |
 | `agent_id` | string | No | — | Agent identifier |
 | `space_id` | string | No | — | Space namespace (Pro+) |
 | `ttl_seconds` | number | No | — | Auto-expire after N seconds (60–7,776,000) |
 | `auto_link` | boolean | No | `true` | Auto-link to similar memories |
-| `on_conflict` | string | No | `"REJECT"` | Conflict strategy: `REJECT`, `SUPERSEDE`, `MERGE` |
+| `on_conflict` | string | No | `"lww"` | Conflict strategy: `"lww"` (last-write-wins), `"reject"`, `"manual"` |
 
 ### Response fields
 
@@ -116,7 +116,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/memories \
 | Status | Code | Cause |
 |--------|------|-------|
 | 400 | `VALIDATION_ERROR` | Missing `observation` or invalid `importance` range |
-| 409 | `CONFLICT` | Duplicate content detected and `on_conflict` is `REJECT` |
+| 409 | `CONFLICT` | Duplicate content detected and `on_conflict` is `"reject"` |
 | 429 | `RATE_LIMITED` | Exceeded plan memory limit or API call quota |
 
 ---
@@ -230,7 +230,7 @@ Retrieve a single memory by ID with full metadata.
 | `uuid` | string | Memory identifier |
 | `observation` | string | Memory content |
 | `tags` | string[] | Tags |
-| `importance` | number | Importance score (1–10) |
+| `importance` | integer | Importance score (integer 1–10) |
 | `confidence` | number | System confidence score |
 | `recall_count` | number | Number of times recalled |
 | `last_recalled_at` | string | Last recall timestamp |
@@ -296,7 +296,7 @@ Partially update a memory. Only send the fields you want to change.
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `observation` | string | No | Updated content |
-| `importance` | number | No | Updated importance (1–10) |
+| `importance` | integer | No | Updated importance (integer 1–10) |
 | `tags` | string[] | No | Updated tags (replaces existing) |
 | `superseded_by` | string | No | Mark as superseded by another memory |
 

@@ -142,7 +142,10 @@ Add a step to an active trace. Each step is integrity-chained — its hash inclu
 | Field | Type | Description |
 |-------|------|-------------|
 | `step_id` | string | Step identifier |
+| `step_index` | number | Zero-based index of this step in the trace |
+| `type` | string | Step type that was recorded |
 | `integrity_chain_hash` | string | SHA-256 chain hash (includes previous step) |
+| `was_interrupted` | boolean | Whether the step was interrupted |
 
 ### Examples
 
@@ -186,7 +189,10 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/traces/trc_a1b2c3d4e5f6/steps \
 ```json
 {
   "step_id": "stp_f6e5d4c3b2a1",
-  "integrity_chain_hash": "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+  "step_index": 0,
+  "type": "THOUGHT",
+  "integrity_chain_hash": "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a",
+  "was_interrupted": false
 }
 ```
 
@@ -210,8 +216,13 @@ Seal and cryptographically sign a trace. After completion, no more steps can be 
 
 | Field | Type | Description |
 |-------|------|-------------|
+| `trace_id` | string | Trace identifier |
+| `status` | string | Trace status (`completed`) |
 | `integrity_root_hash` | string | Root hash of the integrity chain |
 | `signature` | string | RSA-4096 signature of the root hash |
+| `signature_algorithm` | string | Signing algorithm used (e.g. `RSA-PSS-SHA256`) |
+| `step_count` | number | Total steps in the trace |
+| `signed_at` | string | Timestamp when the trace was signed |
 
 ### Examples
 
@@ -248,8 +259,13 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/traces/trc_a1b2c3d4e5f6/complete \
 
 ```json
 {
+  "trace_id": "trc_a1b2c3d4e5f6",
+  "status": "completed",
   "integrity_root_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "signature": "MGYCMQDJnGm1LQ3..."
+  "signature": "MGYCMQDJnGm1LQ3...",
+  "signature_algorithm": "RSA-PSS-SHA256",
+  "step_count": 4,
+  "signed_at": "2026-03-09T15:02:30Z"
 }
 ```
 
@@ -440,7 +456,7 @@ Verify the cryptographic integrity of a completed trace. Checks that the hash ch
 | `valid` | boolean | Overall validity (chain + signature) |
 | `chain_valid` | boolean | Whether the hash chain is intact |
 | `signature_valid` | boolean | Whether the RSA signature is valid |
-| `discrepancies` | array | List of any integrity issues (empty if valid) |
+| `discrepancies` | array \| null | List of integrity issues, or `null` when there are none |
 
 ### Examples
 
@@ -485,7 +501,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/traces/trc_a1b2c3d4e5f6/verify \
   "valid": true,
   "chain_valid": true,
   "signature_valid": true,
-  "discrepancies": []
+  "discrepancies": null
 }
 ```
 
@@ -563,14 +579,14 @@ curl https://novyx-ram-api.fly.dev/v1/traces/trc_a1b2c3d4e5f6/certificate \
 GET /v1/traces/public-key
 ```
 
-Get the public key used for verifying trace signatures. **No authentication required** — anyone can verify a trace independently.
+Get the public key used for verifying trace signatures. **Requires authentication (Bearer token).**
 
 ### Response fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `public_key` | string | RSA public key (PEM format) |
-| `algorithm` | string | Signing algorithm (e.g. `RSA-SHA256`) |
+| `algorithm` | string | Signing algorithm (e.g. `RSA-PSS-SHA256`) |
 
 ### Examples
 
@@ -578,27 +594,26 @@ Get the public key used for verifying trace signatures. **No authentication requ
 <TabItem value="python" label="Python" default>
 
 ```python
-# No auth required
-import requests
-resp = requests.get("https://novyx-ram-api.fly.dev/v1/traces/public-key")
-public_key = resp.json()["public_key"]
+public_key_info = nx.get_trace_public_key()
+public_key = public_key_info["public_key"]
+algorithm = public_key_info["algorithm"]  # RSA-PSS-SHA256
 ```
 
 </TabItem>
 <TabItem value="typescript" label="TypeScript">
 
 ```typescript
-// No auth required
-const resp = await fetch("https://novyx-ram-api.fly.dev/v1/traces/public-key");
-const { public_key } = await resp.json();
+const publicKeyInfo = await nx.getTracePublicKey();
+const publicKey = publicKeyInfo.public_key;
+const algorithm = publicKeyInfo.algorithm; // RSA-PSS-SHA256
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
 ```bash
-# No authentication needed
-curl https://novyx-ram-api.fly.dev/v1/traces/public-key
+curl https://novyx-ram-api.fly.dev/v1/traces/public-key \
+  -H "Authorization: Bearer nram_your_key"
 ```
 
 </TabItem>

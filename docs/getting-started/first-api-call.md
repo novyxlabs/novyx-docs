@@ -24,7 +24,7 @@ nx = Novyx(api_key="nram_your_key")
 memory = nx.remember(
     "User prefers dark mode and larger font sizes",
     tags=["preferences", "ui"],
-    importance=0.8,
+    importance=8,
 )
 print(memory)
 ```
@@ -40,7 +40,7 @@ const nx = new Novyx({ apiKey: "nram_your_key" });
 const memory = await nx.remember({
   observation: "User prefers dark mode and larger font sizes",
   tags: ["preferences", "ui"],
-  importance: 0.8,
+  importance: 8,
 });
 console.log(memory);
 ```
@@ -55,7 +55,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/memories \
   -d '{
     "observation": "User prefers dark mode and larger font sizes",
     "tags": ["preferences", "ui"],
-    "importance": 0.8
+    "importance": 8
   }'
 ```
 
@@ -66,9 +66,9 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/memories \
 
 ```json
 {
-  "memory_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "observation": "User prefers dark mode and larger font sizes",
-  "importance": 0.8,
+  "importance": 8,
   "tags": ["preferences", "ui"],
   "created_at": "2026-03-09T14:30:00Z"
 }
@@ -80,7 +80,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/memories \
 |-----------|------|----------|-------------|
 | `observation` | string | Yes | The fact, preference, or context to store |
 | `tags` | string[] | No | Labels for filtering and organization |
-| `importance` | float | No | 0.0–1.0 weight for search ranking (default: 0.5) |
+| `importance` | int | No | 1–10 weight for search ranking (default: 5) |
 | `space_id` | string | No | Context Space to store in (Pro+) |
 
 ## Semantic search
@@ -125,10 +125,10 @@ curl "https://novyx-ram-api.fly.dev/v1/memories/search?q=user+UI+preferences" \
 {
   "results": [
     {
-      "memory_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
       "observation": "User prefers dark mode and larger font sizes",
       "score": 0.92,
-      "importance": 0.8,
+      "importance": 8,
       "tags": ["preferences", "ui"],
       "created_at": "2026-03-09T14:30:00Z"
     }
@@ -156,11 +156,11 @@ Undo agent mistakes by reverting memory to any point in time.
 ```python
 # Preview what will change (non-destructive)
 preview = nx.rollback_preview(target="1 hour ago")
-print(f"Will remove {preview['memories_to_remove']} memories")
+print(f"Will modify {preview['artifacts_modified']} and delete {preview['artifacts_deleted']}")
 
 # Execute the rollback
 result = nx.rollback(target="1 hour ago")
-print(f"Removed {result['deleted_count']} memories")
+print(f"Rolled back: {result['message']}")
 ```
 
   </TabItem>
@@ -169,11 +169,11 @@ print(f"Removed {result['deleted_count']} memories")
 ```typescript
 // Preview what will change (non-destructive)
 const preview = await nx.rollbackPreview({ target: "1 hour ago" });
-console.log(`Will remove ${preview.memories_to_remove} memories`);
+console.log(`Will modify ${preview.artifacts_modified} and delete ${preview.artifacts_deleted}`);
 
 // Execute the rollback
 const result = await nx.rollback({ target: "1 hour ago" });
-console.log(`Removed ${result.deleted_count} memories`);
+console.log(`Rolled back: ${result.message}`);
 ```
 
   </TabItem>
@@ -199,14 +199,10 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/rollback \
 ```json
 {
   "success": true,
-  "deleted_count": 3,
-  "remaining_memories": [
-    {
-      "memory_id": "...",
-      "observation": "User prefers dark mode and larger font sizes",
-      "created_at": "2026-03-09T13:30:00Z"
-    }
-  ]
+  "rolled_back_to": "2026-03-09T13:30:00Z",
+  "artifacts_restored": 2,
+  "operations_undone": 3,
+  "message": "Rolled back to 1 hour ago"
 }
 ```
 
@@ -254,7 +250,7 @@ Every operation is SHA-256 hashed and timestamped:
 ```python
 logs = nx.audit(limit=5)
 for log in logs:
-    print(f"{log['action']} at {log['timestamp']} — hash: {log['hash'][:16]}...")
+    print(f"{log['event_type']} at {log['timestamp']} — hash: {log['hash_chain'][:16]}...")
 ```
 
   </TabItem>
@@ -263,7 +259,7 @@ for log in logs:
 ```typescript
 const logs = await nx.audit({ limit: 5 });
 for (const log of logs) {
-  console.log(`${log.action} at ${log.timestamp} — hash: ${log.hash.slice(0, 16)}...`);
+  console.log(`${log.event_type} at ${log.timestamp} — hash: ${log.hash_chain.slice(0, 16)}...`);
 }
 ```
 

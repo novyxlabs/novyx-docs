@@ -30,8 +30,10 @@ Get the cryptographic audit trail. Returns a paginated list of audit entries, ea
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `limit` | number | No | `50` | Max entries (1–1000) |
+| `offset` | number | No | `0` | Pagination offset |
 | `since` | string | No | — | ISO 8601 start timestamp. Only entries after this time are returned |
-| `operations` | string | No | — | Comma-separated filter: `create`, `update`, `delete`, `rollback` |
+| `until` | string | No | — | ISO 8601 end timestamp. Only entries before this time are returned |
+| `event_type` | string | No | — | Comma-separated filter: `create`, `update`, `delete`, `rollback` |
 
 ### Response fields
 
@@ -61,7 +63,7 @@ for entry in audit["entries"]:
     print(f"[{entry['timestamp']}] {entry['operation']} — {entry['memory_id']}")
 
 # Filter by operation type
-creates = nx.audit(operations="create", limit=50)
+creates = nx.audit(event_type="create", limit=50)
 
 # Filter by time range
 from_yesterday = nx.audit(since="2026-03-08T00:00:00Z")
@@ -82,7 +84,7 @@ for (const entry of audit.entries) {
 }
 
 // Filter by operation type
-const creates = await nx.audit({ operations: "create", limit: 50 });
+const creates = await nx.audit({ event_type: "create", limit: 50 });
 
 // Filter by time range
 const fromYesterday = await nx.audit({ since: "2026-03-08T00:00:00Z" });
@@ -97,7 +99,7 @@ curl "https://novyx-ram-api.fly.dev/v1/audit?limit=20" \
   -H "Authorization: Bearer nram_your_key"
 
 # Filter by operation type
-curl "https://novyx-ram-api.fly.dev/v1/audit?operations=create&limit=50" \
+curl "https://novyx-ram-api.fly.dev/v1/audit?event_type=create&limit=50" \
   -H "Authorization: Bearer nram_your_key"
 
 # Filter by time range
@@ -151,7 +153,7 @@ curl "https://novyx-ram-api.fly.dev/v1/audit?since=2026-03-08T00:00:00Z" \
 
 | Status | Code | Cause |
 |--------|------|-------|
-| 400 | `VALIDATION_ERROR` | Invalid `since` timestamp format or unknown operation filter |
+| 400 | `VALIDATION_ERROR` | Invalid `since`/`until` timestamp format or unknown event type filter |
 | 429 | `RATE_LIMITED` | Exceeded plan API call quota |
 
 ---

@@ -68,7 +68,7 @@ print(key["api_key"])  # nram_... — save this, it's shown only once
   <TabItem value="curl" label="curl">
 
 ```bash
-curl -X POST https://novyx-ram-api.fly.dev/v1/api-keys \
+curl -X POST https://novyx-ram-api.fly.dev/v1/keys \
   -H "Authorization: Bearer nram_your_key" \
   -H "Content-Type: application/json" \
   -d '{"name": "production-agent"}'
@@ -81,7 +81,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/api-keys \
 
 ```python
 new_key = nx.rotate_api_key(key_id="key-uuid")
-# Old key is immediately invalidated
+# Old key has a 24-hour grace period before full invalidation
 ```
 
 ### List keys
@@ -98,7 +98,7 @@ for k in keys:
 |---------|--------|
 | Key format | `nram_` prefix + HMAC-signed payload |
 | Storage | Keys are hashed server-side — we never store plaintext |
-| Rotation | Instant invalidation of old key |
+| Rotation | Old key has 24-hour grace period after rotation |
 | Audit | Every key usage is logged in the audit trail |
 | Rate limiting | Per-key, per-plan (1,000–10,000 req/min) |
 

@@ -39,9 +39,11 @@ Use [Preview Rollback](#preview-rollback) to see what will change before executi
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `restored` | number | Memories restored (were deleted after target) |
-| `removed` | number | Memories removed (were created after target) |
-| `target` | string | Rollback target timestamp |
+| `success` | boolean | Whether the rollback succeeded |
+| `rolled_back_to` | string | Target timestamp the rollback restored to |
+| `artifacts_restored` | number | Artifacts restored (were deleted after target) |
+| `operations_undone` | number | Operations undone (were created after target) |
+| `message` | string | Human-readable summary of the rollback |
 
 ### Examples
 
@@ -55,7 +57,7 @@ nx = Novyx(api_key="nram_your_key")
 
 # Roll back to 2 hours ago
 result = nx.rollback("2026-03-09T12:00:00Z")
-print(f"Restored: {result['restored']}, Removed: {result['removed']}")
+print(f"Restored: {result['artifacts_restored']}, Undone: {result['operations_undone']}")
 ```
 
 The Python SDK also supports natural language targets:
@@ -75,7 +77,7 @@ import { Novyx } from "novyx";
 const nx = new Novyx({ apiKey: "nram_your_key" });
 
 const result = await nx.rollback("2026-03-09T12:00:00Z");
-console.log(`Restored: ${result.restored}, Removed: ${result.removed}`);
+console.log(`Restored: ${result.artifacts_restored}, Undone: ${result.operations_undone}`);
 ```
 
 </TabItem>
@@ -95,9 +97,11 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/rollback \
 
 ```json
 {
-  "restored": 3,
-  "removed": 7,
-  "target": "2026-03-09T12:00:00Z"
+  "success": true,
+  "rolled_back_to": "2026-03-09T12:00:00Z",
+  "artifacts_restored": 3,
+  "operations_undone": 7,
+  "message": "Rolled back to 2026-03-09T12:00:00Z — restored 3 artifacts, undone 7 operations"
 }
 ```
 
@@ -129,9 +133,12 @@ Preview what a rollback would do without executing it. Shows which memories woul
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `would_restore` | number | Memories that would be restored |
-| `would_remove` | number | Memories that would be removed |
-| `target` | string | Preview target timestamp |
+| `target_timestamp` | string | The target timestamp being previewed |
+| `artifacts_modified` | number | Artifacts that would be modified |
+| `artifacts_deleted` | number | Artifacts that would be deleted |
+| `size_bytes` | number | Total size of affected artifacts in bytes |
+| `safe_rollback` | boolean | Whether the rollback is safe to execute |
+| `warnings` | string[] | Warnings about potential issues (empty if safe) |
 
 ### Examples
 
@@ -141,11 +148,12 @@ Preview what a rollback would do without executing it. Shows which memories woul
 ```python
 # Preview before executing
 preview = nx.rollback_preview("2026-03-09T12:00:00Z")
-print(f"Would restore: {preview['would_restore']}")
-print(f"Would remove: {preview['would_remove']}")
+print(f"Artifacts modified: {preview['artifacts_modified']}")
+print(f"Artifacts deleted: {preview['artifacts_deleted']}")
+print(f"Safe: {preview['safe_rollback']}")
 
 # If the preview looks right, execute
-if preview["would_restore"] > 0 or preview["would_remove"] > 0:
+if preview["safe_rollback"]:
     result = nx.rollback("2026-03-09T12:00:00Z")
 ```
 
@@ -155,11 +163,12 @@ if preview["would_restore"] > 0 or preview["would_remove"] > 0:
 ```typescript
 // Preview before executing
 const preview = await nx.rollbackPreview("2026-03-09T12:00:00Z");
-console.log(`Would restore: ${preview.would_restore}`);
-console.log(`Would remove: ${preview.would_remove}`);
+console.log(`Artifacts modified: ${preview.artifacts_modified}`);
+console.log(`Artifacts deleted: ${preview.artifacts_deleted}`);
+console.log(`Safe: ${preview.safe_rollback}`);
 
 // If the preview looks right, execute
-if (preview.would_restore > 0 || preview.would_remove > 0) {
+if (preview.safe_rollback) {
   const result = await nx.rollback("2026-03-09T12:00:00Z");
 }
 ```
@@ -179,9 +188,12 @@ curl "https://novyx-ram-api.fly.dev/v1/rollback/preview?target=2026-03-09T12:00:
 
 ```json
 {
-  "would_restore": 3,
-  "would_remove": 7,
-  "target": "2026-03-09T12:00:00Z"
+  "target_timestamp": "2026-03-09T12:00:00Z",
+  "artifacts_modified": 3,
+  "artifacts_deleted": 7,
+  "size_bytes": 14320,
+  "safe_rollback": true,
+  "warnings": []
 }
 ```
 

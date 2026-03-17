@@ -129,7 +129,7 @@ curl https://novyx-ram-api.fly.dev/health \
 ```json
 {
   "status": "healthy",
-  "version": "3.0.0",
+  "version": "1.1.1",
   "timestamp": "2026-03-09T12:00:00Z",
   "enterprise_available": true,
   "checks": {
@@ -198,7 +198,7 @@ curl https://novyx-ram-api.fly.dev/v1/status \
 
 ```json
 {
-  "version": "3.0.0",
+  "version": "1.1.1",
   "status": "operational",
   "timestamp": "2026-03-09T12:00:00Z",
   "uptime_seconds": 86400.5,

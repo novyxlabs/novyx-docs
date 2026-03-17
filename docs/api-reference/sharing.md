@@ -13,7 +13,7 @@ Share memory spaces with other Novyx tenants using secure, token-based invitatio
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 
-**Tier:** Pro+
+**Tier:** Starter+
 
 ---
 
@@ -101,7 +101,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/spaces/share \
 ```json
 {
   "token": "shr_x1y2z3a4b5c6",
-  "share_url": "https://novyx-ram-api.fly.dev/v1/spaces/join?token=shr_x1y2z3a4b5c6",
+  "share_url": "https://novyxlabs.com/join?token=shr_x1y2z3a4b5c6",
   "tag": "customer-support",
   "shared_with_email": "alice@example.com",
   "permission": "write",
@@ -115,7 +115,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/spaces/share \
 | Status | Code | Cause |
 |--------|------|-------|
 | 400 | `VALIDATION_ERROR` | Invalid tag or email |
-| 403 | `FEATURE_NOT_AVAILABLE` | Requires Pro+ plan |
+| 403 | `FEATURE_NOT_AVAILABLE` | Requires Starter+ plan |
 
 ---
 
@@ -304,7 +304,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/spaces/join \
 | Status | Code | Cause |
 |--------|------|-------|
 | 400 | `INVALID_TOKEN` | Token expired or invalid |
-| 403 | `FEATURE_NOT_AVAILABLE` | Requires Pro+ plan |
+| 403 | `FEATURE_NOT_AVAILABLE` | Requires Starter+ plan |
 
 ---
 
