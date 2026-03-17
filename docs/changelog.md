@@ -5,6 +5,19 @@ description: What's new in Novyx Core. Release notes for SDK updates, API improv
 
 # Changelog
 
+## v3.0.1 — March 11, 2026
+
+**Security Hardening, MCP 64 Tools & JS SDK Parity**
+
+- **MCP Server v2.2.0:** Expanded from 23 to **64 tools** — full Core API coverage including eval, cortex, replay, actions, drafts, knowledge graph, and more
+- **JS/TS SDK v2.11.0:** 27 new methods for full API parity with Python SDK
+- **Security audit fixes:** SSRF DNS resolution hardened, credential leak prevention, TTL bypass fixed, search filter push-down for Postgres
+- **Control integration:** Governed actions, approval flows, policy engine wired into Core audit trail
+- **Eval gate:** GitHub Action for CI/CD memory health quality gates (marketplace-ready)
+- **Cortex enhancements:** Real-time contradiction detection, `explain_action`, webhook bus
+- **Event bus:** Real-time SSE streams for memory events
+- **Revenue loop:** Payment failure handling, value preview on tier limit 403s, `/v1/usage/insights` endpoint, first-memory activation tracking
+
 ## v3.0.0 — March 8, 2026
 
 **Eval System, AsyncNovyx & CI/CD Quality Gates**
@@ -50,9 +63,9 @@ description: What's new in Novyx Core. Release notes for SDK updates, API improv
 
 ## MCP v2.0.0 — February 26, 2026
 
-**MCP Server 2.0 — 23 Tools, Resources & Prompts**
+**MCP Server 2.0 — Tools, Resources & Prompts**
 
-- 23 MCP tools: core memory (10), context spaces (6), replay (4), cortex (3)
+- Initial MCP release with core memory, context spaces, replay, and cortex tools
 - 6 resources: `novyx://memories`, `novyx://stats`, `novyx://usage`, `novyx://spaces`, and per-ID lookups
 - 3 prompts: `memory-context`, `session-summary`, `space-context`
 - Context spaces for multi-agent collaboration via MCP

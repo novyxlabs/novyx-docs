@@ -1,11 +1,11 @@
 ---
 title: MCP Server
-description: 23 MCP tools for Cursor, Claude Code, and any MCP-compatible client.
+description: 64 MCP tools for Cursor, Claude Code, and any MCP-compatible client.
 ---
 
 # MCP Server
 
-23 memory tools for Cursor, Claude Code, Claude Desktop, and any MCP-compatible client.
+64 memory tools for Cursor, Claude Code, Claude Desktop, and any MCP-compatible client.
 
 **Install:** `pip install novyx-mcp`
 
@@ -20,14 +20,19 @@ novyx-mcp runs locally with SQLite at `~/.novyx/local.db`. Add a Novyx API key l
 | [Local](/mcp/local-mode) | SQLite (`~/.novyx/local.db`) | Not required | Personal projects, getting started |
 | [Cloud](/mcp/cloud-mode) | Novyx API (Postgres) | Required | Production, multi-device sync |
 
-## Tools (23)
+## Tools (64)
 
 | Category | Tools | Tier |
 |----------|-------|------|
-| Core Memory | remember, recall, list, get, update, delete, supersede, rollback, rollback_preview, create_link, get_links, delete_link | Free+ |
-| Knowledge Graph | create_triple, query_triples, traverse_entity | Pro+ |
-| Context | context_now, audit_trail, usage_stats | Free+ |
-| Milestones | create_milestone, list_milestones, milestone_diff | Pro+ |
-| Cortex | cortex_status, cortex_run | Pro+ |
+| Core Memory | remember, recall, forget, list_memories, memory_stats, memory_health | Free+ |
+| Knowledge Graph | add_triple, query_triples, delete_triple, list_entities, get_entity, delete_entity, get_links, link_memories, unlink, graph_edges | Pro+ |
+| Context Spaces | create_space, list_spaces, update_space, delete_space, share_space, space_memories, shared_contexts, accept_shared_context, revoke_shared_context | Free+ |
+| Rollback & Audit | rollback, rollback_preview, rollback_history, audit, audit_verify | Free+ |
+| Replay | replay_timeline, replay_snapshot, replay_diff, replay_lifecycle, replay_memory, replay_memory_drift, replay_recall | Pro+ |
+| Cortex | cortex_run, cortex_config, cortex_status, cortex_insights | Pro+ |
+| Eval | eval_run, eval_gate, eval_history, eval_drift | All |
+| Actions/Control | list_pending, approve_action, check_policy, action_history | Pro+ |
+| Memory Drafts | draft_memory, merge_draft, reject_draft, draft_diff, memory_drafts | Starter+ |
+| Other | dashboard, context_now, supersede, memory_branch, merge_branch, reject_branch, trace_create, trace_step, trace_complete, trace_verify | Varies |
 
 See the [full tools reference](/mcp/tools-reference) for parameters and response shapes.

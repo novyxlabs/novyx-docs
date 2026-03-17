@@ -33,5 +33,6 @@ Complete reference for the Novyx Core API. 120+ endpoints across 19 routers.
 | [Sharing](/api-reference/sharing) | 6 | Pro+ | Space sharing and access tokens |
 | [API Keys](/api-reference/api-keys) | 5 | All | Key management and rotation |
 | [Export](/api-reference/export) | 1 | Starter+ | Audit log export (CSV, JSON, JSONL) |
+| [Actions](/api-reference/actions) | 5+ | Pro+ | Governed actions, approval flows, policy engine |
 | [Usage](/api-reference/usage) | 2 | All | Plan usage, limits, and dashboard |
 | [System](/api-reference/system) | 4 | Public | Health checks, status, milestones |
