@@ -1,6 +1,6 @@
 ---
-title: Knowledge Graph
-description: Knowledge Graph
+title: "Novyx Knowledge Graph Guide — Store Entity Relationships"
+description: "Add structured knowledge to agent memory. Store triples, query relationships, and build connected knowledge bases."
 ---
 
 # Knowledge Graph

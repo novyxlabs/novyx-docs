@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
-title: Memories
-description: Store, retrieve, update, delete, and export memories. The core CRUD endpoints for Novyx.
+title: "Novyx API: Memories — 7 Endpoints for Agent Memory CRUD"
+description: "Store, retrieve, update, delete, and export agent memories. The core CRUD endpoints for building persistent AI agents with Novyx."
 ---
 
 # Memories

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 12
-title: Teams
-description: Create teams, invite members, manage roles, and collaborate across tenants.
+title: "Novyx API: Teams — 9 Endpoints for Organization Management"
+description: "Manage team members, roles, permissions, and billing. Organization-level controls for multi-agent deployments."
 ---
 
 # Teams

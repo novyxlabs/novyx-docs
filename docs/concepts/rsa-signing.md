@@ -1,6 +1,6 @@
 ---
-title: Rsa Signing
-description: Rsa Signing
+title: "Novyx RSA Signing — Tamper-Proof Audit Trails"
+description: "How Novyx uses RSA signatures to prove memory authenticity. Verify that audit entries haven't been modified after creation."
 ---
 
 # Rsa Signing

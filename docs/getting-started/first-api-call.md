@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
-title: First API Call
-description: Walkthrough of your first Novyx API calls with full response shapes.
+title: "Novyx First API Call — Store and Recall a Memory"
+description: "Store, search, and rollback your first AI memory with Novyx. Full code examples and response shapes for Python, TypeScript, and REST."
 ---
 
 # First API Call

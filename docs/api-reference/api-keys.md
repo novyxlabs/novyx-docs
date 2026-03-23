@@ -1,7 +1,7 @@
 ---
 sidebar_position: 16
-title: API Keys
-description: Create accounts, verify emails, rotate and revoke API keys.
+title: "Novyx API: API Keys — 5 Endpoints for Key Management"
+description: "Create, rotate, scope, and revoke API keys. Team-level key management with HMAC-signed authentication."
 ---
 
 # API Keys

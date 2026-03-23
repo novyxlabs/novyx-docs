@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
-title: Audit
-description: Cryptographic audit trail with SHA-256 hashing, operation filtering, and compliance export.
+title: "Novyx API: Audit — Cryptographic Memory Trail"
+description: "Tamper-proof audit trail for every memory operation. Hash-chain verification, RSA signatures, and compliance-ready logging."
 ---
 
 # Audit

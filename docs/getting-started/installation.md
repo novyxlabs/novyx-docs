@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
-title: Installation
-description: Install the Novyx SDK for Python, TypeScript, or as an MCP server.
+title: "Install Novyx — pip install novyx"
+description: "Install Novyx via pip, npm, or the MCP server. Python SDK, JavaScript SDK, and CLI options for every platform."
 ---
 
 # Installation

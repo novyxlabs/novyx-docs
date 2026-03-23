@@ -1,7 +1,7 @@
 ---
 sidebar_position: 16
-title: Compensations
-description: Compensation plans for undoing external actions after a rollback.
+title: "Novyx API: Compensations — Undo Failed Operations"
+description: "Automatic compensation for failed multi-step operations. Restore consistent state after partial failures."
 ---
 
 # Compensations

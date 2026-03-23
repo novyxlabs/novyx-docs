@@ -1,7 +1,7 @@
 ---
 sidebar_position: 7
-title: Knowledge Graph
-description: Build structured knowledge with subject-predicate-object triples and entity traversal.
+title: "Novyx API: Knowledge Graph — 7 Endpoints for Entity Relations"
+description: "Store structured relationships as triples. Query entity connections, traverse graphs, and build agent knowledge bases."
 ---
 
 # Knowledge Graph

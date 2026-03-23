@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
-title: Eval
-description: Memory health scoring, drift analysis, recall baselines, and CI/CD gate checks.
+title: "Novyx API: Eval — 7 Endpoints for Memory Quality Gates"
+description: "Memory health scoring, baseline regression testing, drift analysis, and CI/CD quality gates for agent memory systems."
 ---
 
 # Eval

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
-title: API Reference
-description: Complete API reference for Novyx Core — 120+ endpoints across 19 routers.
+title: "Novyx API Reference — 100+ Endpoints for Agent Memory"
+description: "Complete REST API reference for Novyx Core. Memories, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, and more."
 ---
 
 # API Reference

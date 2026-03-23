@@ -1,7 +1,7 @@
 ---
 sidebar_position: 19
-title: System
-description: Health checks, status, milestones, and metrics — no auth required for liveness probes.
+title: "Novyx API: System — 4 Endpoints for Health & Status"
+description: "Check API health, version info, feature flags, and system status. Monitor Novyx Core availability and configuration."
 ---
 
 # System

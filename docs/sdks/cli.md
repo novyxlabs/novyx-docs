@@ -1,6 +1,6 @@
 ---
-title: CLI
-description: Novyx CLI — manage memories, rollback, audit, and more from the terminal.
+title: "Novyx CLI — Command-Line Memory Management"
+description: "Manage agent memories from the terminal. Store, search, rollback, audit, and export memories via the Novyx command-line interface."
 ---
 
 # CLI

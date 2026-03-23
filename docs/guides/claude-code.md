@@ -1,6 +1,6 @@
 ---
-title: Claude Code + Novyx
-description: Add persistent memory and automatic context persistence to Claude Code with Novyx MCP and Novyx Hygiene.
+title: "How to Add Persistent Memory to Claude Code"
+description: "Give Claude Code memory that survives across sessions. Works with CLAUDE.md. Install in 30 seconds with uvx novyx-mcp."
 ---
 
 # Claude Code + Novyx

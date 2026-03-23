@@ -1,7 +1,7 @@
 ---
 sidebar_position: 9
-title: Cortex
-description: Autonomous memory maintenance — consolidation, reinforcement, decay, and AI-generated insights.
+title: "Novyx API: Cortex — Autonomous Memory Maintenance"
+description: "Self-managing memory consolidation, reinforcement, and decay. Configure autonomous maintenance with tunable parameters."
 ---
 
 # Cortex

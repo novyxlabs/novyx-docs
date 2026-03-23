@@ -1,7 +1,7 @@
 ---
 sidebar_position: 17
-title: Export
-description: Export audit logs as CSV, JSON, or JSONL files with date range filtering.
+title: "Novyx API: Export — Bulk Memory Download"
+description: "Export all agent memories as JSON. Full data portability with metadata, tags, and audit history included."
 ---
 
 # Export

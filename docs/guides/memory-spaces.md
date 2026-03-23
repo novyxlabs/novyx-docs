@@ -1,6 +1,6 @@
 ---
-title: Memory Spaces
-description: Memory Spaces
+title: "Novyx Memory Spaces Guide — Multi-Agent Namespaces"
+description: "Create isolated memory namespaces for agent teams. Share context across agents with scoped access control."
 ---
 
 # Memory Spaces

@@ -1,6 +1,6 @@
 ---
-title: MCP Server
-description: 64 MCP tools for Cursor, Claude Code, and any MCP-compatible client.
+title: "Novyx MCP Server — 72 Tools for Claude, Cursor & Cline"
+description: "The most complete MCP memory server. Remember, recall, rollback, knowledge graph, eval, and governed actions. Zero-config local mode or Novyx Cloud."
 ---
 
 # MCP Server

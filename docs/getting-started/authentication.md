@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
-title: Authentication
-description: How Novyx API keys work — HMAC-signed, scoped, and rotatable.
+title: "Novyx API Authentication — API Keys & Tokens"
+description: "How to get and use Novyx API keys. HMAC-signed bearer tokens, scoped permissions, key rotation, and team-level access control."
 ---
 
 # Authentication

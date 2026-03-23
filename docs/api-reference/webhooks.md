@@ -1,7 +1,7 @@
 ---
 sidebar_position: 11
-title: Webhooks
-description: Subscribe to real-time memory events with HTTPS webhooks. Supports raw, Slack, and Discord formats.
+title: "Novyx API: Webhooks — 6 Endpoints for Event Notifications"
+description: "Get notified when memories change. Register webhook endpoints for memory events, rollbacks, and audit alerts."
 ---
 
 # Webhooks

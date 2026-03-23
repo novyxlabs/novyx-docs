@@ -1,7 +1,7 @@
 ---
 sidebar_position: 18
-title: Usage
-description: Check your plan usage, limits, quotas, and spend estimates.
+title: "Novyx API: Usage — 2 Endpoints for Consumption Tracking"
+description: "Track API calls, memory storage, and feature usage. Monitor consumption against plan limits in real time."
 ---
 
 # Usage

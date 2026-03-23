@@ -1,6 +1,6 @@
 ---
-title: Langchain
-description: Langchain
+title: "Novyx + LangChain — Persistent Memory Integration"
+description: "Add persistent, rollback-capable memory to LangChain agents. Drop-in replacement for ConversationBufferMemory with audit trails."
 ---
 
 # Langchain

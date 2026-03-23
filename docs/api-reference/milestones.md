@@ -1,7 +1,7 @@
 ---
 sidebar_position: 13
-title: Milestones
-description: Track account milestones — first memory, first rollback, first team, and more.
+title: "Novyx API: Milestones — Named Memory Checkpoints"
+description: "Create named checkpoints in agent memory history. Tag important states for easy rollback and reference."
 ---
 
 # Milestones

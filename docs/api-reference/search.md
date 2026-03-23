@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
-title: Search
-description: Semantic search across memories with filters, scoring, and recency weighting.
+title: "Novyx API: Search — Semantic Memory Retrieval"
+description: "Search agent memories by semantic similarity, tags, importance, and time range. Hybrid search with configurable relevance scoring."
 ---
 
 # Search

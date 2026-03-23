@@ -1,6 +1,6 @@
 ---
-title: Guides
-description: Step-by-step guides for rollback, eval, knowledge graph, and framework integrations.
+title: "Novyx Guides — Tutorials for Agent Memory"
+description: "Step-by-step guides for rollback, audit trails, eval, memory spaces, knowledge graphs, and framework integrations."
 ---
 
 # Guides

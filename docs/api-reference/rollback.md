@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
-title: Rollback
-description: Point-in-time restore for agent memory. Preview before executing, with compensation plan support.
+title: "Novyx API: Rollback — Point-in-Time Memory Recovery"
+description: "Roll back agent memories to any previous state. Undo corrupted writes, recover from bad data, and restore memory integrity."
 ---
 
 # Rollback

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
-title: Traces
-description: RSA-signed execution traces — record, verify, and certify your agent's reasoning chain.
+title: "Novyx API: Traces — 8 Endpoints for Agent Observability"
+description: "Trace agent reasoning chains with cryptographic verification. Create, step, complete, and verify execution traces."
 ---
 
 # Traces

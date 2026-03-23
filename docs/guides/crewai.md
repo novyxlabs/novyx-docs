@@ -1,6 +1,6 @@
 ---
-title: Crewai
-description: Crewai
+title: "Novyx + CrewAI — Agent Team Memory"
+description: "Give CrewAI agent teams persistent shared memory. Each agent remembers past tasks and shares context automatically."
 ---
 
 # Crewai

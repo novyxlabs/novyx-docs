@@ -1,6 +1,6 @@
 ---
-title: Conflict Resolution
-description: Conflict Resolution
+title: "Novyx Conflict Resolution — Multi-Agent Memory Merging"
+description: "How Novyx resolves conflicts when multiple agents write to shared memory. Last-write-wins, merge strategies, and custom resolvers."
 ---
 
 # Conflict Resolution

@@ -1,6 +1,6 @@
 ---
-title: SDKs
-description: Python, TypeScript, and CLI SDKs for Novyx Core.
+title: "Novyx Python SDK — 78 Methods for Agent Memory"
+description: "remember(), recall(), rollback(), audit(). Full Python SDK for building agents with persistent, inspectable memory."
 ---
 
 # SDKs

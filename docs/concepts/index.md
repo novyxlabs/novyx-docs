@@ -1,6 +1,6 @@
 ---
-title: Concepts
-description: How Novyx memory works under the hood — hash chains, RSA signing, conflict resolution.
+title: "Novyx Concepts — How Agent Memory Works"
+description: "Understand the architecture behind Novyx Core. Memory storage, hash chains, cryptographic signing, and conflict resolution."
 ---
 
 # Concepts

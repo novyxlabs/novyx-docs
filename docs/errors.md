@@ -1,6 +1,6 @@
 ---
-title: Error Reference
-description: HTTP status codes, error messages, and troubleshooting for Novyx API errors.
+title: "Novyx Error Codes — Troubleshooting Guide"
+description: "Complete list of Novyx API error codes, HTTP status codes, and troubleshooting steps. Fix common issues with memory, auth, and rollback."
 ---
 
 # Error Reference

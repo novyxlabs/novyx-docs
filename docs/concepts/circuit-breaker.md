@@ -1,6 +1,6 @@
 ---
-title: Circuit Breaker
-description: Circuit Breaker
+title: "Novyx Circuit Breaker — Automatic Failure Protection"
+description: "Built-in circuit breaker protects agents from cascading failures. Automatic backoff, health checks, and graceful degradation."
 ---
 
 # Circuit Breaker

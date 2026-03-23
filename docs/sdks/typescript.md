@@ -1,6 +1,6 @@
 ---
-title: TypeScript / JavaScript SDK
-description: TypeScript SDK for Novyx Core — persistent memory, rollback, audit, and eval for AI agents.
+title: "Novyx JavaScript SDK — TypeScript-First Agent Memory"
+description: "npm install novyx. TypeScript-first SDK with full type definitions for building agents with persistent, inspectable memory."
 ---
 
 # TypeScript / JavaScript SDK

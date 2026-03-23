@@ -1,7 +1,7 @@
 ---
 sidebar_position: 15
-title: Drafts & Branches
-description: Reviewable memory drafts and branch-based merge workflows for safe memory updates.
+title: "Novyx API: Drafts — Memory Staging & Review"
+description: "Stage memory changes before committing. Draft, review, merge, or reject memory updates with full audit trail."
 ---
 
 # Drafts & Branches

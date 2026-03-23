@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
-title: Spaces
-description: Create isolated memory namespaces for multi-agent teams with cross-tenant sharing.
+title: "Novyx API: Spaces — Multi-Agent Memory Namespaces"
+description: "Create isolated memory spaces for agent teams. Scoped access, cross-agent sharing, and namespace-level permissions."
 ---
 
 # Context Spaces

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 14
-title: Actions & Control
-description: Policy-checked action execution, approval workflows, and active policy management.
+title: "Novyx API: Actions — Governed Agent Tool Calls"
+description: "Policy engine for agent actions. Submit, approve, reject, and audit every tool call that touches the real world."
 ---
 
 # Actions & Control

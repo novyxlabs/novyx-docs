@@ -1,6 +1,6 @@
 ---
-title: Tools Reference
-description: Complete reference for all 64 Novyx MCP Server tools, organized by category.
+title: "Novyx MCP Tools Reference — All 72 Tools"
+description: "Complete reference for all 72 Novyx MCP tools. Memory, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, and more."
 ---
 
 # Tools Reference

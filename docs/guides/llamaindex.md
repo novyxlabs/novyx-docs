@@ -1,6 +1,6 @@
 ---
-title: Llamaindex
-description: Llamaindex
+title: "Novyx + LlamaIndex — Persistent RAG Memory"
+description: "Add persistent memory to LlamaIndex RAG pipelines. Store retrieval context, track query history, and rollback on errors."
 ---
 
 # Llamaindex

@@ -1,6 +1,6 @@
 ---
-title: Python SDK
-description: Python SDK for Novyx Core — persistent memory, rollback, audit, and eval for AI agents.
+title: "Novyx Python SDK Reference — Complete API"
+description: "Full API reference for the Novyx Python SDK. Every method documented with parameters, return types, and usage examples."
 ---
 
 # Python SDK

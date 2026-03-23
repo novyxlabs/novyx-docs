@@ -1,7 +1,7 @@
 ---
 sidebar_position: 14
-title: Anomalies
-description: Behavioral anomaly detection surfaced through audit logs and memory operations.
+title: "Novyx API: Anomalies — Memory Integrity Alerts"
+description: "Detect and flag suspicious memory operations. Automated anomaly detection for memory poisoning and integrity violations."
 ---
 
 # Anomalies

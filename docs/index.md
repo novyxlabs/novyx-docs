@@ -1,8 +1,9 @@
 ---
 slug: /
-title: Novyx Documentation
+title: "Novyx Docs — Persistent Memory for AI Agents"
 sidebar_position: 0
 hide_title: true
+description: "Add rollback, audit trails, and semantic search to any AI agent. 72 MCP tools, Python/JS SDKs, local-first SQLite or cloud API."
 ---
 
 # Novyx Documentation

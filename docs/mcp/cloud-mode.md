@@ -1,6 +1,6 @@
 ---
-title: Cloud Mode
-description: Cloud Mode
+title: "Novyx MCP Cloud Mode — Sync Across Machines"
+description: "Connect Novyx MCP to Novyx Cloud. Sync memories across machines, share with team agents, and access the full API."
 ---
 
 # Cloud Mode

@@ -1,6 +1,6 @@
 ---
-title: Changelog
-description: What's new in Novyx Core. Release notes for SDK updates, API improvements, and new features.
+title: "Novyx Changelog — Release History & Updates"
+description: "What's new in Novyx Core. Release notes for SDK updates, API improvements, MCP server changes, and new features."
 ---
 
 # Changelog

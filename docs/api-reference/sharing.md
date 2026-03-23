@@ -1,7 +1,7 @@
 ---
 sidebar_position: 15
-title: Sharing
-description: Share memory spaces across tenants with token-based invitations and role-based access.
+title: "Novyx API: Sharing — 6 Endpoints for Cross-Agent Memory"
+description: "Share memory spaces between agents and teams. Fine-grained access control with read, write, and admin permissions."
 ---
 
 # Sharing

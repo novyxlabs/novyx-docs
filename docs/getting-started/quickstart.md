@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
-title: Quickstart
-description: Get persistent memory running in 30 seconds. Three lines of code.
+title: "Novyx Quickstart — Persistent Agent Memory in 30 Seconds"
+description: "Add persistent memory to any AI agent in three lines of code. Local SQLite mode works immediately — no API key needed."
 ---
 
 # Quickstart

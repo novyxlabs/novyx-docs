@@ -1,7 +1,7 @@
 ---
 sidebar_position: 8
-title: Replay
-description: Time-travel debugging — timeline, point-in-time snapshots, diffs, and memory lifecycle tracking.
+title: "Novyx API: Replay — Time-Travel Debugging for Agents"
+description: "Replay agent memory state at any point in time. Snapshot, diff, timeline, and lifecycle views for debugging agent behavior."
 ---
 
 # Replay
