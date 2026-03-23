@@ -1,5 +1,5 @@
 ---
-title: "Novyx MCP Server — 72 Tools for Claude, Cursor & Cline"
+title: "Novyx MCP Server — 91 Tools for Claude, Cursor & Cline"
 description: "The most complete MCP memory server. Remember, recall, rollback, knowledge graph, eval, and governed actions. Zero-config local mode or Novyx Cloud."
 ---
 
