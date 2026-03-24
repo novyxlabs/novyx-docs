@@ -9,7 +9,7 @@ Two tools for Claude Code: **novyx-mcp** gives your agents persistent memory, an
 
 ## Novyx MCP Server — Persistent Memory
 
-Add persistent memory to Claude Code via the MCP protocol. One command to install, 64 tools available immediately.
+Add persistent memory to Claude Code via the MCP protocol. One command to install, 91 tools available immediately.
 
 ### Install
 
@@ -76,7 +76,7 @@ Get a free API key at [novyxlabs.com](https://novyxlabs.com) (5,000 memories, no
 | `replay_diff` | Compare memory state between two points |
 | `replay_lifecycle` | Track a single memory's full history |
 | `memory_stats` | Usage statistics |
-| And more... | 64 tools total |
+| And more... | 91 tools total |
 
 ### Shared Memory Across Agents
 

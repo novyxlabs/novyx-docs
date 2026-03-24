@@ -5,7 +5,7 @@ description: "Complete reference for all 91 Novyx MCP tools. Memory, search, rol
 
 # Tools Reference
 
-The Novyx MCP Server exposes **64 tools** that give AI agents full access to Novyx Core capabilities. Tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite).
+The Novyx MCP Server exposes **91 tools** that give AI agents full access to Novyx Core capabilities. Core memory tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite). Advanced features (threat intelligence, auto-defense, correlation, governed actions) require Cloud mode.
 
 Tier key: **Free** = available on all tiers including local mode | **Starter+** = requires Starter tier or higher | **Pro+** = requires Pro tier or higher | **Enterprise** = requires Enterprise tier
 

@@ -7,9 +7,9 @@ description: "What's new in Novyx Core. Release notes for SDK updates, API impro
 
 ## v3.0.1 — March 11, 2026
 
-**Security Hardening, MCP 64 Tools & JS SDK Parity**
+**Security Hardening, MCP 91 Tools & JS SDK Parity**
 
-- **MCP Server v2.2.0:** Expanded from 23 to **64 tools** — full Core API coverage including eval, cortex, replay, actions, drafts, knowledge graph, and more
+- **MCP Server v2.2.0:** Expanded from 23 to **91 tools** — full Core API coverage including eval, cortex, replay, actions, drafts, knowledge graph, threat intelligence, auto-defense, and cross-tenant correlation
 - **JS/TS SDK v2.11.0:** 27 new methods for full API parity with Python SDK
 - **Security audit fixes:** SSRF DNS resolution hardened, credential leak prevention, TTL bypass fixed, search filter push-down for Postgres
 - **Control integration:** Governed actions, approval flows, policy engine wired into Core audit trail

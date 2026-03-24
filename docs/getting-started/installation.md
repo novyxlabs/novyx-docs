@@ -206,7 +206,7 @@ curl https://novyx-ram-api.fly.dev/v1/usage \
 | `novyx` | `pip install novyx` | Python SDK + CLI (78 methods) |
 | `novyx[async]` | `pip install novyx[async]` | Async client with httpx |
 | `novyx` (npm) | `npm install novyx` | TypeScript/JavaScript SDK |
-| `novyx-mcp` | `pip install novyx-mcp` | MCP server (64 tools) |
+| `novyx-mcp` | `pip install novyx-mcp` | MCP server (91 tools) |
 | `novyx-langchain` | `pip install novyx-langchain` | LangChain memory backend |
 | `novyx-crewai` | `pip install novyx-crewai` | CrewAI storage backend |
 | `novyx-llamaindex` | `pip install novyx-llamaindex` | LlamaIndex chat store |
