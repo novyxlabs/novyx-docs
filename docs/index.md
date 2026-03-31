@@ -3,7 +3,7 @@ slug: /
 title: "Novyx Docs — Persistent Memory for AI Agents"
 sidebar_position: 0
 hide_title: true
-description: "Add rollback, audit trails, and semantic search to any AI agent. 91 MCP tools, Python/JS SDKs, local-first SQLite or cloud API."
+description: "Add rollback, audit trails, and semantic search to any AI agent. 107 MCP tools, Python/JS SDKs, local-first SQLite or cloud API."
 ---
 
 # Novyx Documentation
@@ -29,7 +29,7 @@ Persistent memory, semantic search, point-in-time rollback, and eval testing for
 
 <a href="/mcp" style={{display: 'block', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--ifm-toc-border-color)', textDecoration: 'none', color: 'inherit', transition: 'border-color 0.2s'}}>
   <h3 style={{margin: '0 0 0.5rem', color: 'var(--ifm-color-primary)'}}>MCP Server</h3>
-  <p style={{margin: 0, fontSize: '0.875rem', opacity: 0.7}}>91 tools for Cursor, Claude Code, and any MCP client. Core memory works locally, full surface with Novyx Cloud.</p>
+  <p style={{margin: 0, fontSize: '0.875rem', opacity: 0.7}}>107 tools for Cursor, Claude Code, and any MCP client. Core memory works locally, full surface with Novyx Cloud.</p>
 </a>
 
 <a href="/guides" style={{display: 'block', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--ifm-toc-border-color)', textDecoration: 'none', color: 'inherit', transition: 'border-color 0.2s'}}>
