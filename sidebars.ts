@@ -29,6 +29,7 @@ const sidebars: SidebarsConfig = {
         'api-reference/replay',
         'api-reference/cortex',
         'api-reference/eval',
+        'api-reference/runtime',
         'api-reference/actions',
         'api-reference/drafts',
         'api-reference/compensations',

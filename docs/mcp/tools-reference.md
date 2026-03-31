@@ -1,11 +1,11 @@
 ---
-title: "Novyx MCP Tools Reference — All 91 Tools"
-description: "Complete reference for all 91 Novyx MCP tools. Memory, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, and more."
+title: "Novyx MCP Tools Reference — All 107 Tools"
+description: "Complete reference for all 107 Novyx MCP tools. Memory, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, runtime v2, and more."
 ---
 
 # Tools Reference
 
-The Novyx MCP Server exposes **91 tools** that give AI agents full access to Novyx Core capabilities. Core memory tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite). Advanced features (threat intelligence, auto-defense, correlation, governed actions) require Cloud mode.
+The Novyx MCP Server exposes **107 tools** that give AI agents full access to Novyx Core capabilities. Core memory tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite). Advanced features (threat intelligence, auto-defense, correlation, governed actions, runtime v2) require Cloud mode.
 
 Tier key: **Free** = available on all tiers including local mode | **Starter+** = requires Starter tier or higher | **Pro+** = requires Pro tier or higher | **Enterprise** = requires Enterprise tier
 
@@ -183,6 +183,32 @@ Dashboard, statistics, and health monitoring.
 
 ---
 
+## Runtime v2
+
+First-class agent lifecycle, missions, capabilities, checkpoints, and supervisor interventions. [Full documentation →](/api-reference/runtime)
+
+| Tool | Description | Key Parameters | Tier |
+|------|-------------|----------------|------|
+| `create_agent` | Register a persistent agent in the Novyx Runtime. | `name` (str), `model` (str), `provider` (str), `capabilities` (list) | Free |
+| `list_agents` | List all agents for the current tenant. | `status` (str), `limit` (int) | Free |
+| `get_agent` | Get an agent by ID. | `agent_id` (str) | Free |
+| `delete_agent` | Delete an agent. | `agent_id` (str) | Free |
+| `create_mission` | Create a mission (bounded job) for an agent. | `agent_id` (str), `goal` (str), `constraints` (list), `success_criteria` (list) | Free |
+| `list_missions` | List missions for the current tenant. | `agent_id` (str), `status` (str), `limit` (int) | Free |
+| `get_mission` | Get a mission by ID. | `mission_id` (str) | Free |
+| `pause_mission` | Pause a running mission. | `mission_id` (str) | Free |
+| `resume_mission` | Resume a paused mission. | `mission_id` (str) | Free |
+| `cancel_mission` | Cancel a mission. | `mission_id` (str) | Free |
+| `create_capability` | Register a capability pack (tool bundle with governance). | `name` (str), `tools` (list), `risk_levels` (object) | Free |
+| `list_capabilities` | List registered capability packs. | — | Free |
+| `create_checkpoint` | Create a checkpoint for a mission (rollback point). | `mission_id` (str), `label` (str) | Free |
+| `list_checkpoints` | List checkpoints for a mission. | `mission_id` (str) | Free |
+| `rollback_to_checkpoint` | Rollback a mission to a previous checkpoint. | `mission_id` (str), `checkpoint_id` (str), `reason` (str) | Free |
+| `create_intervention` | Record a supervisor intervention. | `intervention_type` (str), `mission_id` (str), `rationale` (str) | Free |
+| `list_interventions` | List supervisor interventions. | `mission_id` (str), `agent_id` (str), `intervention_type` (str) | Free |
+
+---
+
 ## Tool Count by Category
 
 | Category | Tools |
@@ -198,5 +224,6 @@ Dashboard, statistics, and health monitoring.
 | Eval | 4 |
 | Actions & Control | 4 |
 | Memory Drafts | 8 |
+| Runtime v2 | 17 |
 | System | 4 |
-| **Total** | **64** |
+| **Total** | **81** |
