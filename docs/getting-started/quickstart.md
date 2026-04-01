@@ -131,5 +131,5 @@ That's it. Your agent now has persistent memory that survives restarts, crashes,
 
 - **[Installation](/getting-started/installation)** — All install options (sync, async, MCP, framework integrations)
 - **[First API call](/getting-started/first-api-call)** — Detailed walkthrough with response shapes
-- **[API Reference](/api-reference)** — Every endpoint across 19 routers
+- **[API Reference](/api-reference)** — Every endpoint across 28 routers
 - **[Guides](/guides)** — Rollback, eval, knowledge graph, framework integrations

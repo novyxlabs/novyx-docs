@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
-title: "Novyx API Reference — 100+ Endpoints for Agent Memory"
-description: "Complete REST API reference for Novyx Core. Memories, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, and more."
+title: "Novyx API Reference — 185+ Endpoints for Agent Memory"
+description: "Complete REST API reference for Novyx Core. Memories, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, runtime, and more."
 ---
 
 # API Reference
 
-Complete reference for the Novyx Core API. 120+ endpoints across 19 routers.
+Complete reference for the Novyx Core API. 185+ endpoints across 28 routers.
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 

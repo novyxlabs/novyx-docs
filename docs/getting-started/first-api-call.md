@@ -269,6 +269,6 @@ for (const log of logs) {
 ## Next steps
 
 - **[Authentication](/getting-started/authentication)** — API key management and security
-- **[API Reference](/api-reference)** — All 120+ endpoints across 19 routers
+- **[API Reference](/api-reference)** — All 185+ endpoints across 28 routers
 - **[Rollback guide](/guides/rollback)** — Advanced rollback patterns
 - **[Eval guide](/guides/eval)** — Memory health scoring and CI/CD gates

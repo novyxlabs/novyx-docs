@@ -19,7 +19,7 @@ Persistent memory, semantic search, point-in-time rollback, and eval testing for
 
 <a href="/api-reference" style={{display: 'block', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--ifm-toc-border-color)', textDecoration: 'none', color: 'inherit', transition: 'border-color 0.2s'}}>
   <h3 style={{margin: '0 0 0.5rem', color: 'var(--ifm-color-primary)'}}>API Reference</h3>
-  <p style={{margin: 0, fontSize: '0.875rem', opacity: 0.7}}>120+ endpoints across 19 routers. Every parameter documented.</p>
+  <p style={{margin: 0, fontSize: '0.875rem', opacity: 0.7}}>185+ endpoints across 28 routers. Every parameter documented.</p>
 </a>
 
 <a href="/sdks" style={{display: 'block', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--ifm-toc-border-color)', textDecoration: 'none', color: 'inherit', transition: 'border-color 0.2s'}}>
