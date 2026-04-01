@@ -5,7 +5,7 @@ description: "The most complete MCP memory server. Remember, recall, rollback, k
 
 # MCP Server
 
-64 memory tools for Cursor, Claude Code, Claude Desktop, and any MCP-compatible client.
+107 tools for Cursor, Claude Code, Claude Desktop, and any MCP-compatible client.
 
 **Install:** `pip install novyx-mcp`
 
