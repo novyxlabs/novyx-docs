@@ -25,7 +25,7 @@ Every submitted action resolves to one of **three** HTTP-level statuses:
 |--------|---------|
 | `allowed` | The action passed all policies and either executed or is safe to execute. May still include `policy_result.warnings` if any `warn` rules fired. |
 | `blocked` | At least one rule with `on_violation: block` fired. The action is rejected. |
-| `pending_review` | At least one rule with `on_violation: require_approval` fired. The action is held in the approval queue. The response includes a `trace_id` the agent can poll via `GET /v1/actions/{trace_id}/explain` for the outcome. The same identifier is surfaced as `approval_id` in the queue API. |
+| `pending_review` | At least one rule with `on_violation: require_approval` fired. The action is held in the approval queue. The response includes `policy_result.action_id` — the agent polls this via `nx.action_status(action_id)` for the outcome. The same identifier is surfaced as `approval_id` in the queue API. |
 
 ### Rule outcomes (what `on_violation` controls)
 
@@ -79,50 +79,40 @@ Configurable multi-person approval chains. Novyx accumulates approval records an
 
 ## Polling pattern
 
-When your agent submits an action that requires approval, the API returns immediately with `status: "pending_review"` and a trace identifier you can poll. The agent should poll [`GET /v1/actions/{action_id}/explain`](../api-reference/actions#explain-action) until the status transitions to `approved`, `denied`, or `executed`.
+When your agent submits an action that requires approval, the API returns immediately with `status: "pending_review"` and an `action_id` inside `policy_result`. The agent polls until the action transitions to `approved`, `denied`, or `executed`.
 
-`POST /v1/actions` accepts `{action, params, agent_id?}`. There is no typed Python/TS wrapper for the direct cloud-API form yet — use `requests`/`fetch` (or [the SDK's escape hatch](../sdks/python)) until a higher-level helper ships.
+The typed `nx.submit_action()` helper (Python 3.4.0 / JS 3.2.0) wraps `POST /v1/actions` against the main cloud governance flow.
 
 <Tabs groupId="lang">
 <TabItem value="python" label="Python" default>
 
 ```python
 import time
-import requests
+from novyx import Novyx
 
-API = "https://novyx-ram-api.fly.dev"
-KEY = "nram_your_key"
-HEADERS = {"Authorization": f"Bearer {KEY}"}
+nx = Novyx(api_key="nram_your_key")
 
 # Submit an action that triggers a require_approval rule
-resp = requests.post(
-    f"{API}/v1/actions",
-    headers=HEADERS,
-    json={
-        "action": "slack.send_message",
-        "params": {
-            "channel": "#external-customers",
-            "text": "Hi! Here's the user's email: alice@example.com",
-        },
-        "agent_id": "support-bot",
+result = nx.submit_action(
+    "slack.send_message",
+    {
+        "channel": "#external-customers",
+        "text": "Hi! Here's the user's email: alice@example.com",
     },
+    agent_id="support-bot",
 )
-result = resp.json()
 
 if result["status"] == "pending_review":
-    action_id = result["trace_id"]  # set when an action enters pending_review
+    action_id = result["policy_result"]["action_id"]
     print(f"Action {action_id} pending — polling for decision...")
 
     while True:
-        explain = requests.get(
-            f"{API}/v1/actions/{action_id}/explain", headers=HEADERS
-        ).json()
-        approval = explain.get("approval") or {}
-        if approval.get("status") in ("approved", "executed"):
+        status = nx.action_status(action_id)
+        if status["status"] in ("approved", "executed"):
             print("Approved — action executed")
             break
-        if approval.get("status") == "denied":
-            print(f"Denied: {approval.get('reason', 'no reason given')}")
+        if status["status"] == "denied":
+            print(f"Denied: {status.get('reason', 'no reason given')}")
             break
         time.sleep(2)
 elif result["status"] == "blocked":
@@ -135,41 +125,32 @@ else:
 <TabItem value="typescript" label="TypeScript">
 
 ```typescript
-const API = "https://novyx-ram-api.fly.dev";
-const KEY = "nram_your_key";
-const HEADERS = { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" };
+import { Novyx } from "novyx";
+
+const nx = new Novyx({ apiKey: "nram_your_key" });
 
 // Submit an action that triggers a require_approval rule
-const submit = await fetch(`${API}/v1/actions`, {
-  method: "POST",
-  headers: HEADERS,
-  body: JSON.stringify({
-    action: "slack.send_message",
-    params: {
-      channel: "#external-customers",
-      text: "Hi! Here's the user's email: alice@example.com",
-    },
-    agent_id: "support-bot",
-  }),
-});
-const result = await submit.json();
+const result = await nx.submitAction(
+  "slack.send_message",
+  {
+    channel: "#external-customers",
+    text: "Hi! Here's the user's email: alice@example.com",
+  },
+  { agent_id: "support-bot" },
+);
 
 if (result.status === "pending_review") {
-  const actionId = result.trace_id;  // set when an action enters pending_review
+  const actionId = result.policy_result.action_id;
   console.log(`Action ${actionId} pending — polling for decision...`);
 
   while (true) {
-    const explain = await fetch(
-      `${API}/v1/actions/${actionId}/explain`,
-      { headers: HEADERS },
-    ).then((r) => r.json());
-    const approval = explain.approval ?? {};
-    if (approval.status === "approved" || approval.status === "executed") {
+    const status = await nx.actionStatus(actionId);
+    if (status.status === "approved" || status.status === "executed") {
       console.log("Approved — action executed");
       break;
     }
-    if (approval.status === "denied") {
-      console.log(`Denied: ${approval.reason ?? "no reason given"}`);
+    if (status.status === "denied") {
+      console.log(`Denied: ${status.reason ?? "no reason given"}`);
       break;
     }
     await new Promise((r) => setTimeout(r, 2000));
@@ -195,13 +176,15 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/actions \
     "agent_id": "support-bot"
   }'
 
-# Poll (use the trace_id from the submit response)
+# Poll (use policy_result.action_id from the submit response)
 curl https://novyx-ram-api.fly.dev/v1/actions/act_xyz/explain \
   -H "Authorization: Bearer nram_your_key"
 ```
 
 </TabItem>
 </Tabs>
+
+> **`nx.submit_action()` vs `nx.action_submit()`** — these are two different methods. `submit_action` is the Phase-1-5 governance path that hits `POST /v1/actions` on the main cloud API. `action_submit` is the legacy `strata.action.v0` envelope path that requires a separate Control instance configured via `control_url`. Most users want `submit_action`.
 
 ---
 

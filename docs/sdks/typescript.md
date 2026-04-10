@@ -11,6 +11,10 @@ description: "npm install novyx. TypeScript-first SDK with full type definitions
 `nx.createAgent()` now requires `provider` (typed as `"openai" | "anthropic" | "litellm"`) and `model`. The previous OpenAI default was removed in Phase 3 of the governance shipment. See the [novyx-agent 2.0 upgrade guide](../agent-sdk/upgrade-to-2.0).
 :::
 
+:::tip New in 3.2.0 — `nx.submitAction()`
+Typed wrapper around `POST /v1/actions` for the main cloud governance flow. Distinct from the legacy `nx.actionSubmit()` which targets a separate Control instance via `control_url`. See the [Control section](../control/approval-workflows#polling-pattern) for the recommended pattern.
+:::
+
 ## Installation
 
 ```bash
@@ -118,13 +122,20 @@ await nx.evalDrift({ days })
 ### Control — Actions & Approvals
 
 ```typescript
-await nx.actionSubmit({ connector, operation, payload })
+// Recommended: typed wrapper for the main cloud governance flow (3.2.0+)
+await nx.submitAction(action, params, { agent_id })
+//   → { action, status, policy_result, message, trace_id }
+//     status is one of "allowed" | "blocked" | "pending_review"
+
 await nx.actionStatus(actionId)
 await nx.actionList({ status, limit })
-await nx.policyCheck({ agentId, connector, operation })
+await nx.policyCheck()
 await nx.listApprovals({ limit, statusFilter })
 await nx.approveAction(approvalId, { decision, reason, approverId })
 await nx.explainAction(actionId)
+
+// Legacy: separate Control instance via control_url (strata.action.v0 envelope)
+await nx.actionSubmit(connector, operation, payload)
 ```
 
 ### Control — Custom Policies (new in 3.1.0)

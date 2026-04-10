@@ -11,6 +11,10 @@ description: "Full API reference for the Novyx Python SDK. Every method document
 `nx.create_agent()` now requires `provider` and `model` keyword arguments. The previous OpenAI default was removed in Phase 3 of the governance shipment. See the [novyx-agent 2.0 upgrade guide](../agent-sdk/upgrade-to-2.0) for the same change in the higher-level Agent class.
 :::
 
+:::tip New in 3.4.0 — `nx.submit_action()`
+Typed wrapper around `POST /v1/actions` for the main cloud governance flow. Distinct from the legacy `nx.action_submit()` which targets a separate Control instance via `control_url`. See the [Control section](../control/approval-workflows#polling-pattern) for the recommended pattern.
+:::
+
 ## Installation
 
 ```bash
@@ -133,13 +137,14 @@ memories = await nx.recall("user preferences")
 
 | Method | Description |
 |--------|-------------|
-| `nx.action_submit(connector, operation, payload)` | Submit an action for policy evaluation. Returns status `allowed`, `blocked`, or `pending_review`. |
+| `nx.submit_action(action, params=None, *, agent_id=None)` | **Recommended.** Submit an action to the main cloud governance flow (`POST /v1/actions`). Evaluates against built-in + custom YAML policies. Returns status `allowed`, `blocked`, or `pending_review`. New in 3.4.0. |
 | `nx.action_status(action_id)` | Check action status, including post-approval result. |
 | `nx.action_list(status=None, *, limit=None)` | List recent Control actions. |
 | `nx.policy_check(agent_id=None, connector=None, operation=None)` | Read the active policy profile. |
 | `nx.list_approvals(*, limit=50, status_filter=None)` | List pending action approvals. |
 | `nx.approve_action(approval_id, *, decision="approve", reason=None, approver_id=None)` | Approve or deny a pending action. |
 | `nx.explain_action(action_id)` | Get the full causal chain for an action — policies, approval, memories, audit. |
+| `nx.action_submit(connector, operation, payload)` | **Legacy.** Submit a `strata.action.v0` envelope to a separate Control instance. Requires `control_url` set on the client. Use `submit_action()` for the main API. |
 
 ### Control — Custom Policies (new in 3.3.0)
 

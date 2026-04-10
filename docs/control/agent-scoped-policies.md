@@ -96,21 +96,11 @@ nx.create_policy(
 )
 
 # 3. Submit an action as billing-bot — the agent-scoped policy fires
-import requests
-
-resp = requests.post(
-    "https://novyx-ram-api.fly.dev/v1/actions",
-    headers={"Authorization": "Bearer nram_your_key"},
-    json={
-        "action": "slack.send_message",
-        "params": {
-            "channel": "#external",
-            "text": "Customer email: alice@example.com",
-        },
-        "agent_id": "billing-bot",
-    },
+result = nx.submit_action(
+    "slack.send_message",
+    {"channel": "#external", "text": "Customer email: alice@example.com"},
+    agent_id="billing-bot",
 )
-result = resp.json()
 
 print(result["status"])  # "blocked"
 print(result["policy_result"].get("triggered_policy"))  # "pii_protection"
@@ -160,22 +150,11 @@ await nx.createPolicy({
 });
 
 // 3. Submit an action as billing-bot — the agent-scoped policy fires
-const submit = await fetch("https://novyx-ram-api.fly.dev/v1/actions", {
-  method: "POST",
-  headers: {
-    "Authorization": "Bearer nram_your_key",
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    action: "slack.send_message",
-    params: {
-      channel: "#external",
-      text: "Customer email: alice@example.com",
-    },
-    agent_id: "billing-bot",
-  }),
-});
-const result = await submit.json();
+const result = await nx.submitAction(
+  "slack.send_message",
+  { channel: "#external", text: "Customer email: alice@example.com" },
+  { agent_id: "billing-bot" },
+);
 
 console.log(result.status);  // "blocked"
 console.log(result.policy_result?.triggered_policy);  // "pii_protection"

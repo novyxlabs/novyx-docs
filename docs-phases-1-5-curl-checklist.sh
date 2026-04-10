@@ -144,10 +144,12 @@ note "Expected: 200, {agent_id, total, backend, violations:[]}. Will likely be e
 curl -sS "$API/v1/control/agents/checklist-test/violations?limit=20" "${AUTH[@]}" | JQ
 
 step "4.4  GET /v1/control/agents/checklist-test/violations with time range"
-note "Expected: same shape, filtered by since/until."
-note "KNOWN BUG (April 2026): the live API currently returns novyx_ram.v1.control.violations_failed when since/until are passed."
-note "Until that's fixed, omit since/until and filter client-side."
+note "Expected: same shape, filtered by since/until. Fixed in Phase 6.5 (April 2026)."
 curl -sS "$API/v1/control/agents/checklist-test/violations?since=2026-04-01T00:00:00Z&until=2026-04-30T00:00:00Z" "${AUTH[@]}" | JQ
+
+step "4.5  GET /v1/control/agents/checklist-test/violations with bad timestamp"
+note "Expected: 400 novyx_ram.v1.control.invalid_violations_param with the field name in the message."
+curl -sS "$API/v1/control/agents/checklist-test/violations?since=not-a-date" "${AUTH[@]}" | JQ
 
 # ============================================================================
 # AGENT-SCOPED POLICIES (Phase 5)

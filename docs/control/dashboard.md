@@ -206,7 +206,7 @@ Per-agent violation history. Returns audit entries containing non-empty violatio
 | `since` | string | — | ISO 8601 timestamp lower bound. |
 | `until` | string | — | ISO 8601 timestamp upper bound. |
 
-> **Known issue (April 2026):** `since` and `until` currently return `novyx_ram.v1.control.violations_failed` against the live API. Until that's fixed, omit them and filter client-side. Tracking under the violations endpoint backlog.
+Both timestamp params accept full ISO 8601 with timezone (e.g. `2026-04-01T00:00:00Z`). Invalid input returns 400 `novyx_ram.v1.control.invalid_violations_param` with the offending field name in the message.
 
 ### Response shape
 
@@ -282,6 +282,7 @@ curl "https://novyx-ram-api.fly.dev/v1/control/agents/billing-bot/violations?sin
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 400 | `novyx_ram.v1.control.invalid_violations_param` | `since` or `until` is not a valid ISO 8601 timestamp. The error message names the offending field. |
 | 403 | `novyx_ram.v1.tier.feature_required` | Tenant tier does not include `governance_dashboard` (Free tier). |
 
 ---
