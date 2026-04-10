@@ -5,7 +5,11 @@ description: "npm install novyx. TypeScript-first SDK with full type definitions
 
 # TypeScript / JavaScript SDK
 
-`npm install novyx` — 50+ methods with full TypeScript types.
+`npm install novyx` — 60+ methods with full TypeScript types.
+
+:::caution Breaking change in 3.1.0
+`nx.createAgent()` now requires `provider` (typed as `"openai" | "anthropic" | "litellm"`) and `model`. The previous OpenAI default was removed in Phase 3 of the governance shipment. See the [novyx-agent 2.0 upgrade guide](../agent-sdk/upgrade-to-2.0).
+:::
 
 ## Installation
 
@@ -111,17 +115,50 @@ await nx.evalHistory({ limit })
 await nx.evalDrift({ days })
 ```
 
-### Control (Actions & Approval)
+### Control — Actions & Approvals
 
 ```typescript
-await nx.actionSubmit(action, tool, params, riskLevel)
+await nx.actionSubmit({ connector, operation, payload })
 await nx.actionStatus(actionId)
-await nx.actionList(status)
-await nx.policyCheck(action, tool, params)
-await nx.approveAction(approvalId, { decision })
+await nx.actionList({ status, limit })
+await nx.policyCheck({ agentId, connector, operation })
+await nx.listApprovals({ limit, statusFilter })
+await nx.approveAction(approvalId, { decision, reason, approverId })
+await nx.explainAction(actionId)
 ```
 
-### Dashboard
+### Control — Custom Policies (new in 3.1.0)
+
+```typescript
+await nx.createPolicy({
+  name: 'pii_protection',
+  rules: [{ match: '(ssn|passport)', severity: 'critical' }],
+  description: 'Block PII exposure',
+  whitelisted_domains: ['internal.company.com'],
+  agent_id: 'billing-bot',  // optional — Pro+ for agent-scoped
+})
+
+await nx.listPolicies({ agent_id: 'billing-bot' })
+await nx.getPolicy('pii_protection', { agent_id: 'billing-bot' })
+await nx.updatePolicy('pii_protection', { rules: [...] })
+await nx.deletePolicy('pii_protection', { agent_id: 'billing-bot' })
+```
+
+All five accept optional `agent_id` for [agent-scoped policies](../control/agent-scoped-policies) (Pro+).
+
+### Control — Governance Dashboard (new in 3.1.0)
+
+```typescript
+// Aggregated governance stats — totals, violations by policy/agent, time-series
+await nx.governanceDashboard({ window: '7d', bucket: 'day' })
+
+// Per-agent violation history
+await nx.agentViolations('billing-bot', { limit: 20, since: '2026-04-01T00:00:00Z' })
+```
+
+Both require the `governance_dashboard` feature (Starter+).
+
+### Tenant Dashboard
 
 ```typescript
 await nx.dashboard()  // Aggregated stats — memory count, tier, usage, pressure

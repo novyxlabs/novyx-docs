@@ -1,11 +1,11 @@
 ---
-title: "Novyx MCP Tools Reference — All 107 Tools"
-description: "Complete reference for all 107 Novyx MCP tools. Memory, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, runtime v2, and more."
+title: "Novyx MCP Tools Reference — All 119 Tools"
+description: "Complete reference for all 119 Novyx MCP tools. Memory, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, runtime v2, custom policies, and more."
 ---
 
 # Tools Reference
 
-The Novyx MCP Server exposes **107 tools** that give AI agents full access to Novyx Core capabilities. Core memory tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite). Advanced features (threat intelligence, auto-defense, correlation, governed actions, runtime v2) require Cloud mode.
+The Novyx MCP Server (v2.5.0) exposes **119 tools** that give AI agents full access to Novyx Core capabilities. Core memory tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite). Advanced features (custom policies, governance dashboard, threat intelligence, auto-defense, correlation, governed actions, runtime v2) require Cloud mode.
 
 Tier key: **Free** = available on all tiers including local mode | **Starter+** = requires Starter tier or higher | **Pro+** = requires Pro tier or higher | **Enterprise** = requires Enterprise tier
 
@@ -142,7 +142,7 @@ Memory quality scoring and CI gates.
 
 ## Actions & Control
 
-Governed agent actions with human-in-the-loop approval workflows.
+Governed agent actions, human-in-the-loop approval workflows, and policy-as-code authoring.
 
 | Tool | Description | Key Parameters | Tier |
 |------|-------------|----------------|------|
@@ -150,6 +150,9 @@ Governed agent actions with human-in-the-loop approval workflows.
 | `approve_action` | Approve a pending agent action. Triggers execution against the target connector (GitHub, Slack, Linear, PagerDuty, HTTP). | `approval_id` (str), `approver_id` (str), `reason` (str) | Starter+ |
 | `check_policy` | Check the current Control policy profile. Shows which connectors require approval. | `connector` (str), `environment` (str) | Starter+ |
 | `action_history` | List recent Control actions with their status (submitted, pending, approved, denied, executed, failed). | `limit` (int) | Starter+ |
+| `create_policy` | Create or update a custom Control policy. Pass `agent_id` to scope it to a single agent (Pro+). | `name` (str), `description` (str), `rules` (list), `step_types` (list), `whitelisted_domains` (list) | Starter+ |
+| `list_policies` | List active Control policies (built-in + tenant custom). | `enabled_only` (bool, default `True`) | Free |
+| `delete_policy` | Disable a custom policy. Built-in policies cannot be deleted. | `policy_name` (str) | Starter+ |
 
 ---
 
@@ -189,7 +192,7 @@ First-class agent lifecycle, missions, capabilities, checkpoints, and supervisor
 
 | Tool | Description | Key Parameters | Tier |
 |------|-------------|----------------|------|
-| `create_agent` | Register a persistent agent in the Novyx Runtime. | `name` (str), `model` (str), `provider` (str), `capabilities` (list) | Free |
+| `create_agent` | Register a persistent agent in the Novyx Runtime. **Required since v2.5.0**: `provider` and `model` are no longer optional. Pass `provider="openai"`, `"anthropic"`, or `"litellm"`. See the [novyx-agent 2.0 upgrade guide](../agent-sdk/upgrade-to-2.0). | `name` (str), `provider` (str, **required**), `model` (str, **required**), `capabilities` (list) | Free |
 | `list_agents` | List all agents for the current tenant. | `status` (str), `limit` (int) | Free |
 | `get_agent` | Get an agent by ID. | `agent_id` (str) | Free |
 | `delete_agent` | Delete an agent. | `agent_id` (str) | Free |
@@ -222,8 +225,12 @@ First-class agent lifecycle, missions, capabilities, checkpoints, and supervisor
 | Replay | 7 |
 | Cortex | 4 |
 | Eval | 4 |
-| Actions & Control | 4 |
+| Actions & Control | 7 |
 | Memory Drafts | 8 |
 | Runtime v2 | 17 |
 | System | 4 |
-| **Total** | **81** |
+| **Subtotal documented above** | **84** |
+| Threat intelligence + auto-defense (see footnote) | 35 |
+| **Total** | **119** |
+
+> **Footnote:** The threat intelligence and auto-defense families (`threat_record`, `threat_match`, `threat_feed`, `threat_trending`, `defense_deploy`, `defense_list`, `defense_remove`, `defense_effectiveness`, `defense_recommend`, and related correlation/signature tools) are out of scope for this reference. They are documented in the `novyx-mcp` README on GitHub. The total of 119 tools is verified by counting `@mcp.tool` decorators in the MCP server source.

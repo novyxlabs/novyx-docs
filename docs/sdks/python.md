@@ -5,7 +5,11 @@ description: "Full API reference for the Novyx Python SDK. Every method document
 
 # Python SDK
 
-`pip install novyx` — 78+ methods for persistent memory, rollback, audit, knowledge graph, eval, and more.
+`pip install novyx` — 85+ methods for persistent memory, rollback, audit, knowledge graph, eval, governance, and more.
+
+:::caution Breaking change in 3.3.0
+`nx.create_agent()` now requires `provider` and `model` keyword arguments. The previous OpenAI default was removed in Phase 3 of the governance shipment. See the [novyx-agent 2.0 upgrade guide](../agent-sdk/upgrade-to-2.0) for the same change in the higher-level Agent class.
+:::
 
 ## Installation
 
@@ -125,18 +129,36 @@ memories = await nx.recall("user preferences")
 | `nx.eval_baselines()` | List baselines |
 | `nx.eval_baseline_delete(baseline_id)` | Delete a baseline |
 
-### Control (Actions & Approval)
+### Control — Actions & Approvals
 
 | Method | Description |
 |--------|-------------|
-| `nx.action_submit(action, tool, params, risk_level)` | Submit an action for policy evaluation |
-| `nx.action_status(action_id)` | Check action status (allowed/blocked/pending) |
-| `nx.action_list(status=None)` | List actions |
-| `nx.policy_check(action, tool, params)` | Check if an action would be allowed |
-| `nx.approve_action(approval_id, *, decision)` | Approve or reject a pending action |
-| `nx.list_approvals(*, limit, status_filter)` | List pending approvals |
-| `nx.list_policies()` | List active policies |
-| `nx.explain_action(action_id)` | Get detailed explanation of policy decision |
+| `nx.action_submit(connector, operation, payload)` | Submit an action for policy evaluation. Returns status `allowed`, `blocked`, or `pending_review`. |
+| `nx.action_status(action_id)` | Check action status, including post-approval result. |
+| `nx.action_list(status=None, *, limit=None)` | List recent Control actions. |
+| `nx.policy_check(agent_id=None, connector=None, operation=None)` | Read the active policy profile. |
+| `nx.list_approvals(*, limit=50, status_filter=None)` | List pending action approvals. |
+| `nx.approve_action(approval_id, *, decision="approve", reason=None, approver_id=None)` | Approve or deny a pending action. |
+| `nx.explain_action(action_id)` | Get the full causal chain for an action — policies, approval, memories, audit. |
+
+### Control — Custom Policies (new in 3.3.0)
+
+| Method | Description |
+|--------|-------------|
+| `nx.create_policy(name, *, rules, description="", step_types=None, whitelisted_domains=None, enabled=True, agent_id=None)` | Create or update a custom YAML/dict policy. Upserts on existing name. |
+| `nx.list_policies(*, agent_id=None)` | List active policies. Pass `agent_id` to also include agent-scoped overrides. |
+| `nx.get_policy(policy_name, *, agent_id=None)` | Fetch one policy's full configuration. Scope-aware. |
+| `nx.update_policy(policy_name, *, rules, description="", ...)` | Replace an existing policy's rules. Increments `version`. |
+| `nx.delete_policy(policy_name, *, agent_id=None)` | Soft-delete (disable) a custom policy. Built-ins cannot be deleted. |
+
+All five accept optional `agent_id` for [agent-scoped policies](../control/agent-scoped-policies) (Pro+).
+
+### Control — Governance Dashboard (new in 3.3.0)
+
+| Method | Description |
+|--------|-------------|
+| `nx.governance_dashboard(*, window="7d", bucket=None)` | Aggregated stats: totals, violations by policy, by agent, time-series. Window: `24h`, `7d`, `30d`. Starter+. |
+| `nx.agent_violations(agent_id, *, limit=50, since=None, until=None)` | Per-agent violation history from the audit chain. Starter+. |
 
 ### Memory Drafts
 

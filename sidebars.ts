@@ -68,6 +68,25 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Control',
+      collapsed: true,
+      items: [
+        'control/custom-policies',
+        'control/approval-workflows',
+        'control/dashboard',
+        'control/agent-scoped-policies',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Agent SDK',
+      collapsed: true,
+      items: [
+        'agent-sdk/upgrade-to-2.0',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Guides',
       collapsed: true,
       link: { type: 'doc', id: 'guides/index' },

@@ -5,6 +5,23 @@ description: "What's new in Novyx Core. Release notes for SDK updates, API impro
 
 # Changelog
 
+## Phases 1-5 — April 10, 2026
+
+**Novyx Control: governance shipment**
+
+A five-phase upgrade to Novyx Control that turns governance into a first-class, tenant-authored, per-agent capability. The marketing site, SDKs, MCP server, and docs are all updated.
+
+- **Phase 1 — Policy-as-code.** Author custom Control policies in YAML or JSON. Each rule has a regex `match`, `severity`, optional `context_requires`, and an optional `on_violation` outcome (`block`, `require_approval`, or `warn`). Severity-based defaults if omitted: CRITICAL→block, HIGH→require_approval, MEDIUM/LOW→warn. Tier-gated: Free=0, Starter=5, Pro=25, Enterprise=unlimited. Built-in `FinancialSafetyPolicy` and `DataExfiltrationPolicy` are always active. Full CRUD: `POST`/`GET`/`PUT`/`DELETE /v1/control/policies`. See [Custom Policies](./control/custom-policies).
+- **Phase 2 — Approval workflows.** New action status `pending_review`. Real approval queue at `GET /v1/approvals` (returns latest event per `action_id` ordered by `sequence_number`, not timestamp — survives cross-worker clock drift). `POST /v1/approvals/{action_id}/decision` with 404 for unknown action and 409 for already-decided. Three approval modes: Solo (phrase + 5s delay), Team (different person OR 10min cooldown), Enterprise (multi-person chains with `min_approvals`). See [Approval Workflows](./control/approval-workflows).
+- **Phase 3 — Multi-provider neutrality.** `novyx-agent` 1.x → 2.0: `provider` and `model` are now required keyword arguments on `Agent(...)`. The OpenAI default has been removed. Valid providers: `openai`, `anthropic`, `litellm` (with `litellm` covering Gemini, Mistral, Cohere, Ollama, etc.). Same change applies to `nx.create_agent()` (Python SDK 3.3.0), `nx.createAgent()` (JS SDK 3.1.0), and the `create_agent` MCP tool. New `ToolDef.to_provider_schema(provider)` dispatcher. **Breaking change.** See the [novyx-agent 2.0 upgrade guide](./agent-sdk/upgrade-to-2.0).
+- **Phase 4 — Governance dashboard.** `GET /v1/control/dashboard?window=24h|7d|30d&bucket=hour|day` returns aggregated stats — totals, violations broken down by policy and agent, and a time-series. Postgres-only; tenants in file mode receive an empty-but-valid shape with `backend: "file"`. New `GET /v1/control/agents/{agent_id}/violations` for per-agent violation history. Tier: Starter+. See [Governance Dashboard](./control/dashboard).
+- **Phase 5 — Agent-scoped policies.** The same policy name can have a tenant-wide version *and* per-agent overrides. Policy registry cache key is now `(tenant_id, agent_id_or_None)`. When both exist, agent-scoped wins for that agent only. All five policy CRUD endpoints accept optional `agent_id`. Tier: Pro+. See [Agent-Scoped Policies](./control/agent-scoped-policies).
+- **Phase 6 — SDK wrappers.** Both SDKs now ship typed helpers for the new endpoints: Python `nx.create_policy`, `nx.list_policies`, `nx.get_policy`, `nx.update_policy`, `nx.delete_policy`, `nx.governance_dashboard`, `nx.agent_violations` (all in 3.3.0). JS equivalents in camelCase (3.1.0). All policy methods accept optional `agent_id`.
+
+**Versions:** novyx (Python) 3.3.0 · novyx (JS) 3.1.0 · novyx-agent 2.0.0 · novyx-mcp 2.5.0 (now 119 tools, up from 107).
+
+---
+
 ## v3.0.1 — March 11, 2026
 
 **Security Hardening, MCP 91 Tools & JS SDK Parity**

@@ -9,7 +9,16 @@ description: "Policy engine for agent actions. Submit, approve, reject, and audi
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Actions router evaluates agent actions against security policies (FinancialSafetyPolicy, DataExfiltrationPolicy) via the Sentinel circuit breaker. Actions are either allowed, blocked, or flagged for review. The Control endpoints manage approval workflows and policy configuration.
+:::tip Looking for the full Control documentation?
+This page is the **API reference** for action submission and the legacy Control endpoints. For the full feature documentation — custom policies, approval workflows, the governance dashboard, and per-agent overrides — see the dedicated Control section:
+
+- [Custom Policies](../control/custom-policies) — author governance rules in YAML
+- [Approval Workflows](../control/approval-workflows) — Solo / Team / Enterprise modes and the polling pattern
+- [Governance Dashboard](../control/dashboard) — aggregated stats and per-agent violation history
+- [Agent-Scoped Policies](../control/agent-scoped-policies) — per-agent policy overrides
+:::
+
+The Actions router evaluates agent actions against the active policy set — built-in policies (`FinancialSafety`, `DataExfiltration`) plus any custom policies authored at the tenant or agent scope. Actions resolve to one of three statuses: `allowed`, `blocked`, or `pending_review`. When a rule fires with `on_violation: warn`, the action status is `allowed` and the warning is appended to `policy_result.warnings`.
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 
@@ -463,14 +472,29 @@ curl https://novyx-ram-api.fly.dev/v1/control/policies \
 {
   "policies": [
     {
-      "name": "FinancialSafetyPolicy",
+      "name": "FinancialSafety",
       "enabled": true,
-      "description": "Blocks high-value financial operations without approval"
+      "description": "Policy to prevent unauthorized financial operations.",
+      "source": "builtin",
+      "agent_id": null
     },
     {
-      "name": "DataExfiltrationPolicy",
+      "name": "DataExfiltration",
       "enabled": true,
-      "description": "Prevents unauthorized data export"
+      "description": "Policy to prevent data exfiltration attempts.",
+      "source": "builtin",
+      "agent_id": null
+    },
+    {
+      "name": "pii_protection",
+      "enabled": true,
+      "description": "Block PII exposure to external systems",
+      "source": "custom",
+      "agent_id": null,
+      "scope": "tenant",
+      "version": 1,
+      "created_at": "2026-04-10T14:30:00Z",
+      "updated_at": "2026-04-10T14:30:00Z"
     }
   ],
   "mode": "enforcement",
@@ -478,3 +502,7 @@ curl https://novyx-ram-api.fly.dev/v1/control/policies \
   "approval_modes": ["solo", "team", "enterprise"]
 }
 ```
+
+> Built-in policies only return `name`, `enabled`, `description`, `source`, and `agent_id`. Custom policies additionally include `scope`, `version`, `created_at`, and `updated_at`.
+
+> Custom policies are first-class as of the Phases 1-5 release. To author your own, see [Custom Policies](../control/custom-policies). The full CRUD API (`POST`/`PUT`/`DELETE /v1/control/policies`) and SDK methods (`nx.create_policy`, `nx.update_policy`, `nx.delete_policy`) are documented there.
