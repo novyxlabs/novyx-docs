@@ -1,11 +1,11 @@
 ---
-title: "Novyx MCP Tools Reference — All 119 Tools"
-description: "Complete reference for all 119 Novyx MCP tools. Memory, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, runtime v2, custom policies, and more."
+title: "Novyx MCP Tools Reference — All 120 Tools"
+description: "Complete reference for all 120 Novyx MCP tools. Memory, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, runtime v2, custom policies, and more."
 ---
 
 # Tools Reference
 
-The Novyx MCP Server (v2.5.0) exposes **119 tools** that give AI agents full access to Novyx Core capabilities. Core memory tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite). Advanced features (custom policies, governance dashboard, threat intelligence, auto-defense, correlation, governed actions, runtime v2) require Cloud mode.
+The Novyx MCP Server (v2.7.1) exposes **120 tools** that give AI agents full access to Novyx Core capabilities. Core memory tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite). Advanced features (custom policies, governance dashboard, threat intelligence, auto-defense, correlation, governed actions, runtime v2) require Cloud mode.
 
 Tier key: **Free** = available on all tiers including local mode | **Starter+** = requires Starter tier or higher | **Pro+** = requires Pro tier or higher | **Enterprise** = requires Enterprise tier
 
@@ -216,21 +216,21 @@ First-class agent lifecycle, missions, capabilities, checkpoints, and supervisor
 
 | Category | Tools |
 |----------|-------|
-| Core Memory | 9 |
-| Knowledge Graph | 6 |
+| Core Memory | 16 |
+| Knowledge Graph | 10 |
 | Context Spaces | 9 |
 | Rollback & Recovery | 3 |
-| Audit & Compliance | 2 |
-| Execution Traces | 4 |
+| Audit & Compliance | 3 |
+| Execution Traces | 5 |
 | Replay | 7 |
-| Cortex | 4 |
-| Eval | 4 |
-| Actions & Control | 7 |
-| Memory Drafts | 8 |
-| Runtime v2 | 17 |
-| System | 4 |
-| **Subtotal documented above** | **84** |
-| Threat intelligence + auto-defense (see footnote) | 35 |
-| **Total** | **119** |
+| Cortex | 5 |
+| Eval | 7 |
+| Actions & Control | 9 |
+| Runtime v2 | 25 |
+| System | 2 |
+| Threat Intelligence | 11 |
+| Auto-Defense | 7 |
+| Introspection | 1 |
+| **Total** | **120** |
 
-> **Footnote:** The threat intelligence and auto-defense families (`threat_record`, `threat_match`, `threat_feed`, `threat_trending`, `defense_deploy`, `defense_list`, `defense_remove`, `defense_effectiveness`, `defense_recommend`, and related correlation/signature tools) are out of scope for this reference. They are documented in the `novyx-mcp` README on GitHub. The total of 119 tools is verified by counting `@mcp.tool` decorators in the MCP server source.
+> **Source of truth:** Tool counts are verified against the `novyx-mcp` registry in `novyx_mcp/tool_registry.py`.

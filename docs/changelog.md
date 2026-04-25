@@ -21,7 +21,7 @@ A five-phase upgrade to Novyx Control that turns governance into a first-class, 
   - **`nx.submit_action(action, params, agent_id=None)`** (Python) and **`nx.submitAction(action, params, { agent_id })`** (JS) — typed wrappers around `POST /v1/actions` for the main cloud governance flow. Distinct from the legacy `nx.action_submit(connector, operation, payload)` which targets a separate Control instance via `control_url`. Most users should use `submit_action`.
   - **`agent_violations` `since`/`until` fix.** The endpoint previously returned `novyx_ram.v1.control.violations_failed` when timestamp filters were passed (asyncpg parameter binding issue — Python `str` types went over the wire as text and the Postgres `::timestamptz` cast silently failed). Fix parses to `datetime` in Python before binding, drops the cast. Bad input now returns 400 `novyx_ram.v1.control.invalid_violations_param` with the offending field name.
 
-**Versions:** novyx (Python) 3.4.0 · novyx (JS) 3.2.0 · novyx-agent 2.0.0 · novyx-mcp 2.5.0 (119 tools, up from 107).
+**Versions:** novyx (Python) 3.4.1 · novyx (JS) 3.2.0 · novyx-agent 2.0.0 · novyx-mcp 2.7.1 (120 tools).
 
 ---
 

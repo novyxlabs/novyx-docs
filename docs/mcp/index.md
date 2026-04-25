@@ -1,11 +1,11 @@
 ---
-title: "Novyx MCP Server — 107 Tools for Claude, Cursor & Cline"
+title: "Novyx MCP Server — 120 Tools for Claude, Cursor & Cline"
 description: "The most complete MCP memory server. Remember, recall, rollback, knowledge graph, eval, and governed actions. Zero-config local mode or Novyx Cloud."
 ---
 
 # MCP Server
 
-107 tools for Cursor, Claude Code, Claude Desktop, and any MCP-compatible client.
+120 tools for Cursor, Claude Code, Claude Desktop, and any MCP-compatible client.
 
 **Install:** `pip install novyx-mcp`
 
@@ -20,7 +20,7 @@ novyx-mcp runs locally with SQLite at `~/.novyx/local.db`. Add a Novyx API key l
 | [Local](/mcp/local-mode) | SQLite (`~/.novyx/local.db`) | Not required | Personal projects, getting started |
 | [Cloud](/mcp/cloud-mode) | Novyx API (Postgres) | Required | Production, multi-device sync |
 
-## Tools (64)
+## Tool Categories
 
 | Category | Tools | Tier |
 |----------|-------|------|
