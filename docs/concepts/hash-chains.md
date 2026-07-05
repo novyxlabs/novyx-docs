@@ -1,6 +1,6 @@
 ---
 title: "Novyx Hash Chains — Cryptographic Memory Integrity"
-description: "How Novyx uses hash chains to create tamper-proof memory history. Every write is cryptographically linked to the previous state."
+description: "How Novyx uses hash-chain style records to make memory and action history tamper-evident."
 ---
 
 # Hash Chains

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
-title: "Novyx Quickstart — Persistent Agent Memory in 30 Seconds"
-description: "Add persistent memory to any AI agent in three lines of code. Local SQLite mode works immediately — no API key needed."
+title: "Novyx Quickstart — Submit a Protected Agent Action"
+description: "Submit an AI agent action to Novyx, receive an allowed/blocked/pending_review verdict, and preserve the evidence needed for audit and recovery."
 ---
 
 # Quickstart
 
-Get Novyx running in 30 seconds. Three lines of code.
+Start with the product path Novyx is built around now: put a gate in front of one action that can change production.
 
 ## 1. Install
 
@@ -18,12 +18,6 @@ import TabItem from '@theme/TabItem';
 
 ```bash
 pip install novyx
-```
-
-For async support (httpx):
-
-```bash
-pip install novyx[async]
 ```
 
   </TabItem>
@@ -43,13 +37,13 @@ No installation needed. Use any HTTP client.
 
 ## 2. Get an API key
 
-Sign up at [novyxlabs.com](https://www.novyxlabs.com) and grab a free API key. Free tier includes 5,000 memories, 10 rollbacks/month, and full semantic search.
+Sign up at [novyxlabs.com](https://www.novyxlabs.com) and create an API key.
 
-:::tip No API key needed for MCP local mode
-If you're using the [MCP Server](/mcp), you can start without an API key — it runs locally with SQLite at `~/.novyx/local.db`. Add an API key later to sync to the cloud.
+:::tip MCP local mode
+If you are using the [MCP Server](/mcp) for local development, you can start without an API key. Local mode uses SQLite at `~/.novyx/local.db`. Use cloud mode when you need shared audit evidence, approvals, or production action governance.
 :::
 
-## 3. Remember, Recall, Rollback
+## 3. Submit a protected action
 
 <Tabs groupId="lang">
   <TabItem value="python" label="Python" default>
@@ -59,15 +53,18 @@ from novyx import Novyx
 
 nx = Novyx(api_key="nram_your_key")
 
-# Store a memory
-nx.remember("User prefers dark mode", tags=["preferences"])
+result = nx.submit_action(
+    "github.merge_pr",
+    {
+        "repo": "acme/api",
+        "pr_number": 42,
+        "environment": "production",
+    },
+    agent_id="deploy-agent",
+)
 
-# Semantic search — ask a question, get ranked results
-results = nx.recall("What does the user prefer?")
-print(results[0]["observation"])  # "User prefers dark mode"
-
-# Undo mistakes — rollback to any point in time
-nx.rollback(target="2 hours ago")
+print(result["status"])   # allowed, blocked, or pending_review
+print(result["message"])  # reviewer-friendly explanation
 ```
 
   </TabItem>
@@ -78,58 +75,60 @@ import { Novyx } from "novyx";
 
 const nx = new Novyx({ apiKey: "nram_your_key" });
 
-// Store a memory
-await nx.remember({ observation: "User prefers dark mode", tags: ["preferences"] });
+const result = await nx.submitAction(
+  "github.merge_pr",
+  {
+    repo: "acme/api",
+    pr_number: 42,
+    environment: "production",
+  },
+  { agent_id: "deploy-agent" },
+);
 
-// Semantic search — ask a question, get ranked results
-const results = await nx.recall("What does the user prefer?");
-console.log(results[0].observation); // "User prefers dark mode"
-
-// Undo mistakes — rollback to any point in time
-await nx.rollback({ target: "2 hours ago" });
+console.log(result.status);  // allowed, blocked, or pending_review
+console.log(result.message); // reviewer-friendly explanation
 ```
 
   </TabItem>
   <TabItem value="curl" label="curl">
 
 ```bash
-# Store a memory
-curl -X POST https://novyx-ram-api.fly.dev/v1/memories \
+curl -X POST https://novyx-ram-api.fly.dev/v1/actions \
   -H "Authorization: Bearer nram_your_key" \
   -H "Content-Type: application/json" \
-  -d '{"observation": "User prefers dark mode", "tags": ["preferences"]}'
-
-# Semantic search
-curl "https://novyx-ram-api.fly.dev/v1/memories/search?q=user+preferences" \
-  -H "Authorization: Bearer nram_your_key"
-
-# Rollback to 2 hours ago
-curl -X POST https://novyx-ram-api.fly.dev/v1/rollback \
-  -H "Authorization: Bearer nram_your_key" \
-  -H "Content-Type: application/json" \
-  -d '{"target": "2 hours ago"}'
+  -d '{
+    "action": "github.merge_pr",
+    "params": {
+      "repo": "acme/api",
+      "pr_number": 42,
+      "environment": "production"
+    },
+    "agent_id": "deploy-agent"
+  }'
 ```
 
   </TabItem>
 </Tabs>
 
-That's it. Your agent now has persistent memory that survives restarts, crashes, and redeployments.
+The response tells your agent whether it may proceed, must wait for approval, or is blocked.
 
-## What you get on Free tier
+## What Novyx records
 
-| Feature | Limit |
-|---------|-------|
-| Memories | 5,000 |
-| API calls | 5,000/month |
-| Rollbacks | 10/month |
-| Semantic search | Included |
-| Audit trail | 7 days |
-| Circuit breaker | Included |
-| Eval runs | 3/day |
+| Evidence | Why it matters |
+|----------|----------------|
+| Requested action | The exact operation the agent wanted to run |
+| Policy result | Why the action was allowed, blocked, or sent to review |
+| Approval state | Who approved or denied the action and when |
+| Execution result | What happened after the gate cleared |
+| Recovery context | Checkpoints, rollback notes, or compensation steps when available |
+
+## Supporting features
+
+Memory, semantic search, replay, eval, and rollback are supporting surfaces for investigation and recovery. Use them when you need context around an action. Do not treat them as a substitute for gating production-changing work before it runs.
 
 ## Next steps
 
-- **[Installation](/getting-started/installation)** — All install options (sync, async, MCP, framework integrations)
-- **[First API call](/getting-started/first-api-call)** — Detailed walkthrough with response shapes
-- **[API Reference](/api-reference)** — Every endpoint across 28 routers
-- **[Guides](/guides)** — Rollback, eval, knowledge graph, framework integrations
+- **[Approval workflows](/control/approval-workflows)** — Route risky actions to reviewers
+- **[Custom policies](/control/custom-policies)** — Define action governance rules
+- **[Actions API](/api-reference/actions)** — Full request and response fields
+- **[MCP Server](/mcp)** — Expose governed actions to MCP-capable agents

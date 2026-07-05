@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: "Novyx API Reference — 185+ Endpoints for Agent Memory"
-description: "Complete REST API reference for Novyx Core. Memories, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, runtime, and more."
+description: "REST API reference for Novyx Core. Actions, approvals, audit evidence, traces, runtime, memory, rollback, replay, cortex, eval, and more."
 ---
 
 # API Reference
@@ -18,14 +18,14 @@ Complete reference for the Novyx Core API. 185+ endpoints across 28 routers.
 |--------|-----------|------|-------------|
 | [Memories](/api-reference/memories) | 7 | All | Store, get, update, delete memories |
 | [Search](/api-reference/search) | 1 | All | Semantic search with recency weighting |
-| [Rollback](/api-reference/rollback) | 2 | All | Point-in-time restore with preview |
+| [Rollback](/api-reference/rollback) | 2 | All | Memory rollback with preview; external side effects require compensation |
 | [Audit](/api-reference/audit) | 2 | All | SHA-256 hashed operation logs |
 | [Spaces](/api-reference/spaces) | 6 | All | Memory namespaces for multi-agent teams |
 | [Traces](/api-reference/traces) | 8 | Pro+ | RSA-signed execution traces |
 | [Knowledge Graph](/api-reference/knowledge-graph) | 7 | Pro+ | Subject-predicate-object triples and entities |
 | [Replay](/api-reference/replay) | 4 | Pro+ | Time-travel debugging |
-| [Cortex](/api-reference/cortex) | 5 | Pro+ | Autonomous memory maintenance |
-| [Eval](/api-reference/eval) | 7 | All | Memory health scoring & CI/CD gates |
+| [Cortex](/api-reference/cortex) | 5 | Pro+ | Experimental memory maintenance |
+| [Eval](/api-reference/eval) | 7 | All | Experimental memory health scoring |
 | [Webhooks](/api-reference/webhooks) | 6 | Pro+ | Real-time event notifications |
 | [Teams](/api-reference/teams) | 9 | Pro+ | Multi-tenant collaboration |
 | [Milestones](/api-reference/milestones) | 1 | All | Account achievement tracking |

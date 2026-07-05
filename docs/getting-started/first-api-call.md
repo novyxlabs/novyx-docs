@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 title: "Novyx First API Call — Store and Recall a Memory"
-description: "Store, search, and rollback your first AI memory with Novyx. Full code examples and response shapes for Python, TypeScript, and REST."
+description: "Store and search memory context, then inspect recovery helpers. Full code examples and response shapes for Python, TypeScript, and REST."
 ---
 
 # First API Call
@@ -9,7 +9,7 @@ description: "Store, search, and rollback your first AI memory with Novyx. Full 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-This guide walks through the core operations — store, search, and rollback — with full request/response shapes.
+This guide walks through memory support operations — store, search, and recovery preview — with full request/response shapes. For the primary action-control flow, start with the [quickstart](/getting-started/quickstart).
 
 ## Store a memory
 
@@ -270,5 +270,6 @@ for (const log of logs) {
 
 - **[Authentication](/getting-started/authentication)** — API key management and security
 - **[API Reference](/api-reference)** — All 185+ endpoints across 28 routers
-- **[Rollback guide](/guides/rollback)** — Advanced rollback patterns
-- **[Eval guide](/guides/eval)** — Memory health scoring and CI/CD gates
+- **[Actions API](/api-reference/actions)** — Gate production-changing agent actions
+- **[Rollback guide](/guides/rollback)** — Memory rollback and recovery patterns
+- **[Eval guide](/guides/eval)** — Experimental memory quality signals

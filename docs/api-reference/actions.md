@@ -64,9 +64,9 @@ from novyx import Novyx
 
 nx = Novyx(api_key="nram_your_key")
 
-result = nx.action_submit(
-    action="github.merge_pr",
-    params={"repo": "myorg/myrepo", "pr_number": 42}
+result = nx.submit_action(
+    "github.merge_pr",
+    {"repo": "myorg/myrepo", "pr_number": 42}
 )
 print(f"Status: {result['status']}")
 print(f"Message: {result['message']}")
@@ -80,10 +80,10 @@ import { Novyx } from "novyx";
 
 const nx = new Novyx({ apiKey: "nram_your_key" });
 
-const result = await nx.actionSubmit({
-  action: "github.merge_pr",
-  params: { repo: "myorg/myrepo", pr_number: 42 },
-});
+const result = await nx.submitAction(
+  "github.merge_pr",
+  { repo: "myorg/myrepo", pr_number: 42 },
+);
 console.log(`Status: ${result.status}`);
 ```
 
@@ -148,7 +148,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/actions \
 GET /v1/actions/{action_id}/explain
 ```
 
-Get the full causal chain for an action: policy evaluation, approval flow, agent memories at the time, and cryptographic audit trail. One API call to answer "why did my agent do that?"
+Get the decision context for an action: policy evaluation, approval flow, agent memories at the time, and audit trail entries. One API call to answer "why did my agent do that?"
 
 ### Path parameters
 
@@ -169,7 +169,7 @@ Get the full causal chain for an action: policy evaluation, approval flow, agent
 | `policy_result` | object \| null | Policy evaluation result |
 | `approval` | object \| null | Approval flow details |
 | `memories_at_time` | array \| null | Agent memories at the moment of the action |
-| `audit_trail` | array | Cryptographic audit entries |
+| `audit_trail` | array | Audit entries tied to the action |
 | `summary` | string | Human-readable summary of the entire chain |
 
 ### Examples

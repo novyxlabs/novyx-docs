@@ -5,7 +5,7 @@ description: "Full API reference for the Novyx Python SDK. Every method document
 
 # Python SDK
 
-`pip install novyx` — 85+ methods for persistent memory, rollback, audit, knowledge graph, eval, governance, and more.
+`pip install novyx` — SDK helpers for protected actions, audit evidence, memory context, recovery, knowledge graph, eval, governance, and more.
 
 :::caution Breaking change in 3.3.0
 `nx.create_agent()` now requires `provider` and `model` keyword arguments. The previous OpenAI default was removed in Phase 3 of the governance shipment. See the [novyx-agent 2.0 upgrade guide](../agent-sdk/upgrade-to-2.0) for the same change in the higher-level Agent class.
@@ -111,7 +111,7 @@ memories = await nx.recall("user preferences")
 | `nx.replay_diff(from_ts, to_ts)` | Compare memory state between two timestamps |
 | `nx.replay_drift(from_ts, to_ts)` | Analyze how memory composition drifted |
 
-### Cortex (Pro+)
+### Cortex (Pro+, experimental)
 
 | Method | Description |
 |--------|-------------|
@@ -121,7 +121,7 @@ memories = await nx.recall("user preferences")
 | `nx.cortex_run()` | Trigger autonomous memory maintenance |
 | `nx.cortex_insights(*, limit, offset)` | Get AI-generated insights |
 
-### Eval
+### Eval (experimental)
 
 | Method | Description |
 |--------|-------------|

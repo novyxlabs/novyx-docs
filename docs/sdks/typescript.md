@@ -102,7 +102,7 @@ await nx.replayRecall(query, at, { limit })
 await nx.replayDiff(fromTs, toTs)
 ```
 
-### Cortex (Pro+)
+### Cortex (Pro+, experimental)
 
 ```typescript
 await nx.cortexStatus()
@@ -110,7 +110,7 @@ await nx.cortexRun()
 await nx.cortexInsights({ limit, offset })
 ```
 
-### Eval
+### Eval (experimental)
 
 ```typescript
 await nx.evalRun({ minScore })

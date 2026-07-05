@@ -9,7 +9,7 @@ description: "Create isolated memory spaces for agent teams. Scoped access, cros
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Context Spaces let you organize memories into isolated namespaces. Each space acts as a container — agents can only access memories within spaces they're allowed into. Spaces support cross-tenant sharing for multi-team collaboration.
+Context Spaces let you organize memories into isolated namespaces. Each space acts as a container — agents can only access memories within spaces they're allowed into. Spaces support controlled sharing for multi-team collaboration.
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 

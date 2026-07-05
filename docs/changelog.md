@@ -5,6 +5,11 @@ description: "What's new in Novyx Core. Release notes for SDK updates, API impro
 
 # Changelog
 
+:::caution Historical positioning
+Older entries may describe experimental or legacy memory-layer features such as Cortex, eval gates, legacy security automation, or exact MCP tool counts. Treat those entries as release history, not current product positioning. Current Novyx positioning is AI agent change control and blast-radius gating for production actions.
+:::
+
+
 ## Phases 1-5 — April 10, 2026
 
 **Novyx Control: governance shipment**
@@ -21,7 +26,7 @@ A five-phase upgrade to Novyx Control that turns governance into a first-class, 
   - **`nx.submit_action(action, params, agent_id=None)`** (Python) and **`nx.submitAction(action, params, { agent_id })`** (JS) — typed wrappers around `POST /v1/actions` for the main cloud governance flow. Distinct from the legacy `nx.action_submit(connector, operation, payload)` which targets a separate Control instance via `control_url`. Most users should use `submit_action`.
   - **`agent_violations` `since`/`until` fix.** The endpoint previously returned `novyx_ram.v1.control.violations_failed` when timestamp filters were passed (asyncpg parameter binding issue — Python `str` types went over the wire as text and the Postgres `::timestamptz` cast silently failed). Fix parses to `datetime` in Python before binding, drops the cast. Bad input now returns 400 `novyx_ram.v1.control.invalid_violations_param` with the offending field name.
 
-**Versions:** novyx (Python) 3.4.0 · novyx (JS) 3.2.0 · novyx-agent 2.0.0 · novyx-mcp 2.5.0 (119 tools, up from 107).
+**Versions:** novyx (Python) 3.4.0 · novyx (JS) 3.2.0 · novyx-agent 2.0.0 · novyx-mcp 2.9.0 line. Current MCP registry: 102 tools.
 
 ---
 
@@ -29,7 +34,7 @@ A five-phase upgrade to Novyx Control that turns governance into a first-class, 
 
 **Security Hardening, MCP 91 Tools & JS SDK Parity**
 
-- **MCP Server v2.2.0:** Expanded from 23 to **91 tools** — full Core API coverage including eval, cortex, replay, actions, drafts, knowledge graph, threat intelligence, auto-defense, and cross-tenant correlation
+- **MCP Server v2.2.0:** Expanded from 23 to **91 tools** — broad Core API coverage including eval, cortex, replay, actions, drafts, knowledge graph, and legacy security automation
 - **JS/TS SDK v2.11.0:** 27 new methods for full API parity with Python SDK
 - **Security audit fixes:** SSRF DNS resolution hardened, credential leak prevention, TTL bypass fixed, search filter push-down for Postgres
 - **Control integration:** Governed actions, approval flows, policy engine wired into Core audit trail

@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Novyx Docs',
-  tagline: 'Persistent memory, rollback, and eval for AI agents',
+  tagline: 'Change control for AI agents touching production',
   favicon: 'img/favicon.ico',
 
   future: {

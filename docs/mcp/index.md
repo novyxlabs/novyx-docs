@@ -1,38 +1,35 @@
 ---
-title: "Novyx MCP Server — 107 Tools for Claude, Cursor & Cline"
-description: "The most complete MCP memory server. Remember, recall, rollback, knowledge graph, eval, and governed actions. Zero-config local mode or Novyx Cloud."
+title: "Novyx MCP Server — Governed Agent Access"
+description: "Use MCP as a path for AI agents to request governed actions, attach context, read decisions, and inspect audit evidence."
 ---
 
 # MCP Server
 
-107 tools for Cursor, Claude Code, Claude Desktop, and any MCP-compatible client.
+The Novyx MCP server is a developer access path into the action gate. It lets MCP-capable agents request governed actions, attach context, read decisions, and inspect audit evidence.
+
+Current `novyx-mcp` builds register **102 tools**. Exact counts can change as experimental tools move in or out of the registry, so the useful adoption path is the workflow, not the count.
 
 **Install:** `pip install novyx-mcp`
 
-:::tip No API key needed
-novyx-mcp runs locally with SQLite at `~/.novyx/local.db`. Add a Novyx API key later to sync to the cloud.
+:::tip No API key needed for local memory work
+novyx-mcp can run locally with SQLite at `~/.novyx/local.db`. Use cloud mode when you need shared audit evidence, approvals, or production action governance.
 :::
 
 ## Modes
 
 | Mode | Storage | API Key | Use case |
 |------|---------|---------|----------|
-| [Local](/mcp/local-mode) | SQLite (`~/.novyx/local.db`) | Not required | Personal projects, getting started |
-| [Cloud](/mcp/cloud-mode) | Novyx API (Postgres) | Required | Production, multi-device sync |
+| [Local](/mcp/local-mode) | SQLite (`~/.novyx/local.db`) | Not required | Personal context, local development, memory experiments |
+| [Cloud](/mcp/cloud-mode) | Novyx API (Postgres) | Required | Protected actions, approvals, audit evidence, team workflows |
 
-## Tools (64)
+## Start with the action surface
 
-| Category | Tools | Tier |
-|----------|-------|------|
-| Core Memory | remember, recall, forget, list_memories, memory_stats, memory_health | Free+ |
-| Knowledge Graph | add_triple, query_triples, delete_triple, list_entities, get_entity, delete_entity, get_links, link_memories, unlink, graph_edges | Pro+ |
-| Context Spaces | create_space, list_spaces, update_space, delete_space, share_space, space_memories, shared_contexts, accept_shared_context, revoke_shared_context | Free+ |
-| Rollback & Audit | rollback, rollback_preview, rollback_history, audit, audit_verify | Free+ |
-| Replay | replay_timeline, replay_snapshot, replay_diff, replay_lifecycle, replay_memory, replay_memory_drift, replay_recall | Pro+ |
-| Cortex | cortex_run, cortex_config, cortex_status, cortex_insights | Pro+ |
-| Eval | eval_run, eval_gate, eval_history, eval_drift | All |
-| Actions/Control | list_pending, approve_action, check_policy, action_history | Pro+ |
-| Memory Drafts | draft_memory, merge_draft, reject_draft, draft_diff, memory_drafts | Starter+ |
-| Other | dashboard, context_now, supersede, memory_branch, merge_branch, reject_branch, trace_create, trace_step, trace_complete, trace_verify | Varies |
+| Workflow | Representative tools | Status |
+|----------|----------------------|--------|
+| Request a protected action | `submit_action`, `list_pending`, `approve_action`, `action_history` | Primary |
+| Attach and inspect evidence | `audit`, `audit_verify`, `trace_create`, `trace_step`, `trace_complete` | Primary |
+| Preserve context | `remember`, `recall`, `list_memories`, `context_now` | Supporting |
+| Recovery review | `rollback_preview`, `rollback_history`, `create_checkpoint`, `rollback_to_checkpoint` | Supporting; scope varies by API |
+| Experimental support | `cortex_*`, `eval_*`, replay snapshots | Off by default or product-dependent |
 
 See the [full tools reference](/mcp/tools-reference) for parameters and response shapes.

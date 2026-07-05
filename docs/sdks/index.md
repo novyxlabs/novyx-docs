@@ -1,6 +1,6 @@
 ---
 title: "Novyx Python SDK — 78 Methods for Agent Memory"
-description: "remember(), recall(), rollback(), audit(). Full Python SDK for building agents with persistent, inspectable memory."
+description: "submit_action(), remember(), recall(), audit(), and recovery helpers for governing AI agents and preserving context."
 ---
 
 # SDKs
