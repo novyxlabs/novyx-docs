@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
-title: "Novyx API: Audit — Cryptographic Memory Trail"
-description: "Tamper-proof audit trail for every memory operation. Hash-chain verification, RSA signatures, and compliance-ready logging."
+title: "Novyx API: Audit — Action and Memory Evidence"
+description: "Tamper-evident audit trail for memory and action evidence. Query entries, export logs, and verify recorded hashes."
 ---
 
 # Audit
@@ -9,7 +9,7 @@ description: "Tamper-proof audit trail for every memory operation. Hash-chain ve
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Every memory operation in Novyx is SHA-256 hashed and timestamped in a tamper-proof audit trail. Query the trail by operation type and time range, or export it for compliance.
+Novyx records memory and action events with timestamps and hashes so teams can inspect what happened later. Query the trail by operation type and time range, or export it for internal review.
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 
@@ -252,7 +252,7 @@ Every memory operation (create, update, delete, rollback) generates an audit ent
 3. **Memory ID** — which memory was affected (null for rollback operations)
 4. **Content hash** — SHA-256 hash of the memory content at that point
 
-The audit trail is **append-only** — entries cannot be modified or deleted. This makes it suitable for compliance scenarios where you need a tamper-proof record of all data operations.
+The audit trail is designed to be append-only and tamper-evident. It is useful for debugging, incident review, and internal compliance workflows, but formal evidentiary use requires your own legal review.
 
 ### Verification
 
@@ -262,4 +262,4 @@ You can independently verify any audit entry by:
 2. Computing the SHA-256 hash
 3. Comparing it to the `content_hash` in the audit entry
 
-For cryptographic chain verification with RSA signatures, see the [Traces API](/api-reference/traces).
+For trace-level verification details, see the [Traces API](/api-reference/traces).

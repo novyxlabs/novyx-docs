@@ -1,6 +1,6 @@
 # Novyx Documentation
 
-Official documentation for [Novyx](https://novyxlabs.com) — persistent memory for AI agents.
+Official documentation for [Novyx](https://novyxlabs.com) — change control for AI agents touching production.
 
 **Live:** [docs.novyxlabs.com](https://docs.novyxlabs.com)
 
@@ -9,7 +9,7 @@ Official documentation for [Novyx](https://novyxlabs.com) — persistent memory 
 - **Getting Started** — Installation, quickstart, first API call
 - **API Reference** — All endpoints with parameters and examples
 - **SDKs** — Python, JavaScript/TypeScript, LangChain, CrewAI, LlamaIndex
-- **Guides** — Rollback, audit trails, semantic search, context spaces
+- **Guides** — Protected actions, audit trails, recovery context, MCP, and framework integrations
 - **Concepts** — Architecture, memory lifecycle, integrity verification
 
 ## Built With

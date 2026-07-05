@@ -1,6 +1,6 @@
 ---
 title: "Novyx Guides — Tutorials for Agent Memory"
-description: "Step-by-step guides for rollback, audit trails, eval, memory spaces, knowledge graphs, and framework integrations."
+description: "Step-by-step guides for protected actions, audit evidence, recovery context, MCP, memory spaces, knowledge graphs, and framework integrations."
 ---
 
 # Guides
@@ -9,9 +9,9 @@ Step-by-step guides for common workflows.
 
 ## Core features
 
-- **[Rollback](/guides/rollback)** — Undo agent mistakes with point-in-time restore
+- **[Rollback](/guides/rollback)** — Memory rollback and recovery context for incident review
 - **[Audit Trails](/guides/audit-trails)** — Cryptographic verification and compliance export
-- **[Eval](/guides/eval)** — Memory health scoring and CI/CD quality gates
+- **[Eval](/guides/eval)** — Experimental memory health signals
 - **[Memory Spaces](/guides/memory-spaces)** — Organize and share memory namespaces
 - **[Knowledge Graph](/guides/knowledge-graph)** — Structured relationships with triples
 

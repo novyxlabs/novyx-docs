@@ -1,11 +1,11 @@
 ---
 title: "Novyx CLI — Command-Line Memory Management"
-description: "Manage agent memories from the terminal. Store, search, rollback, audit, and export memories via the Novyx command-line interface."
+description: "Manage protected actions, audit evidence, memory context, recovery helpers, and exports from the Novyx command-line interface."
 ---
 
 # CLI
 
-The Novyx CLI is included with the Python SDK. 24+ commands for managing memories, rollback, audit, and more.
+The Novyx CLI is included with the Python SDK. It includes commands for memory context, rollback, audit, eval, and related support workflows.
 
 ## Installation
 

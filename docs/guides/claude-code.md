@@ -1,15 +1,15 @@
 ---
-title: "How to Add Persistent Memory to Claude Code"
+title: "How to Use Novyx with Claude Code"
 description: "Give Claude Code memory that survives across sessions. Works with CLAUDE.md. Install in 30 seconds with uvx novyx-mcp."
 ---
 
 # Claude Code + Novyx
 
-Two tools for Claude Code: **novyx-mcp** gives your agents persistent memory, and **novyx-hygiene** keeps your sessions alive across `/compact`, `/clear`, and restarts.
+Two tools for Claude Code: **novyx-mcp** gives agents a path into Novyx context and governed cloud workflows, and **novyx-hygiene** keeps your sessions alive across `/compact`, `/clear`, and restarts.
 
-## Novyx MCP Server — Persistent Memory
+## Novyx MCP Server — Context and governed actions
 
-Add persistent memory to Claude Code via the MCP protocol. One command to install, 107 tools available immediately.
+Add Novyx to Claude Code via the MCP protocol. Local mode supports context/memory workflows; cloud mode adds governed actions, approvals, and shared audit evidence.
 
 ### Install
 
@@ -62,7 +62,7 @@ Get a free API key at [novyxlabs.com](https://novyxlabs.com) (5,000 memories, no
 | `recall` | Semantic search across all memories |
 | `forget` | Delete a memory by ID |
 | `list_memories` | List memories with filtering |
-| `rollback` | Undo a memory operation with cryptographic proof |
+| `rollback` | Preview or execute memory rollback where supported |
 | `audit` | View the audit trail for any memory |
 | `add_triple` | Add a knowledge graph triple (subject-predicate-object) |
 | `query_triples` | Query the knowledge graph |
@@ -76,7 +76,7 @@ Get a free API key at [novyxlabs.com](https://novyxlabs.com) (5,000 memories, no
 | `replay_diff` | Compare memory state between two points |
 | `replay_lifecycle` | Track a single memory's full history |
 | `memory_stats` | Usage statistics |
-| And more... | 107 tools total |
+| And more... | Tool availability depends on MCP version and cloud/local mode |
 
 ### Shared Memory Across Agents
 
@@ -181,11 +181,11 @@ hygiene config set api_key nram_your_key_here
 ## Using Both Together
 
 The best setup uses both:
-- **novyx-mcp** for persistent memory (what your agents know)
+- **novyx-mcp** for context and governed action workflows
 - **novyx-hygiene** for session persistence (where you left off)
 
 ```bash
-# Install MCP server for persistent memory
+# Install MCP server for context and governed workflows
 claude mcp add novyx-memory -- uvx novyx-mcp
 
 # Install Hygiene for session persistence

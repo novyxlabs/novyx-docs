@@ -1,11 +1,11 @@
 ---
-title: "Novyx MCP Tools Reference — All 119 Tools"
-description: "Complete reference for all 119 Novyx MCP tools. Memory, search, rollback, audit, traces, spaces, knowledge graph, replay, cortex, eval, runtime v2, custom policies, and more."
+title: "Novyx MCP Tools Reference"
+description: "Reference for the Novyx MCP server: governed actions, audit evidence, memory context, recovery helpers, runtime, and experimental support tools."
 ---
 
 # Tools Reference
 
-The Novyx MCP Server (v2.5.0) exposes **119 tools** that give AI agents full access to Novyx Core capabilities. Core memory tools work in both **Cloud mode** (with `NOVYX_API_KEY`) and **Local mode** (offline SQLite). Advanced features (custom policies, governance dashboard, threat intelligence, auto-defense, correlation, governed actions, runtime v2) require Cloud mode.
+Current `novyx-mcp` builds register **102 tools**. This page documents the stable public families and calls out support surfaces that are experimental or product-dependent. Local mode supports memory/context workflows with SQLite. Cloud mode is required for protected actions, approvals, shared audit evidence, and team governance.
 
 Tier key: **Free** = available on all tiers including local mode | **Starter+** = requires Starter tier or higher | **Pro+** = requires Pro tier or higher | **Enterprise** = requires Enterprise tier
 
@@ -64,7 +64,7 @@ Multi-agent collaboration through shared memory spaces.
 
 ## Rollback & Recovery
 
-Time-travel and undo operations on your memory store.
+Memory rollback and checkpoint recovery helpers. These are supporting incident-review tools, not a guarantee that every external side effect or full agent state can be transactionally undone.
 
 | Tool | Description | Key Parameters | Tier |
 |------|-------------|----------------|------|
@@ -74,9 +74,9 @@ Time-travel and undo operations on your memory store.
 
 ---
 
-## Audit & Compliance
+## Audit & Evidence
 
-Cryptographic audit trail and integrity verification.
+Tamper-evident audit trail and integrity checks for memory and action evidence.
 
 | Tool | Description | Key Parameters | Tier |
 |------|-------------|----------------|------|
@@ -116,7 +116,11 @@ Time-travel debugging for memory state.
 
 ## Cortex
 
-Autonomous memory intelligence -- consolidation, reinforcement, and insights.
+:::caution Experimental
+Cortex is a supporting memory-maintenance surface and may be disabled by default. Do not build production action-control flows that depend on Cortex being available.
+:::
+
+Memory intelligence -- consolidation, reinforcement, and insights.
 
 | Tool | Description | Key Parameters | Tier |
 |------|-------------|----------------|------|
@@ -128,6 +132,10 @@ Autonomous memory intelligence -- consolidation, reinforcement, and insights.
 ---
 
 ## Eval
+
+:::caution Experimental
+Eval is a supporting quality signal for memory/context. It is not the primary production-action gate.
+:::
 
 Memory quality scoring and CI gates.
 
@@ -230,7 +238,7 @@ First-class agent lifecycle, missions, capabilities, checkpoints, and supervisor
 | Runtime v2 | 17 |
 | System | 4 |
 | **Subtotal documented above** | **84** |
-| Threat intelligence + auto-defense (see footnote) | 35 |
-| **Total** | **119** |
+| Additional governance/runtime/support tools | 18 |
+| **Current registry total** | **102** |
 
-> **Footnote:** The threat intelligence and auto-defense families (`threat_record`, `threat_match`, `threat_feed`, `threat_trending`, `defense_deploy`, `defense_list`, `defense_remove`, `defense_effectiveness`, `defense_recommend`, and related correlation/signature tools) are out of scope for this reference. They are documented in the `novyx-mcp` README on GitHub. The total of 119 tools is verified by counting `@mcp.tool` decorators in the MCP server source.
+Exact tool counts can change as experimental tools move in or out of the MCP registry. Treat the action-gate workflow as the product surface; use counts only as release-specific reference data.

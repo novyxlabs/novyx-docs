@@ -641,4 +641,4 @@ Anyone can verify a Novyx trace certificate without an API key:
 2. **Compute** the SHA-256 hash of the trace steps in order
 3. **Verify** the RSA signature against the root hash using the public key
 
-This makes traces suitable for regulatory compliance, legal evidence, and third-party auditing.
+This makes traces useful for internal compliance review, incident reconstruction, and third-party audit workflows. Formal evidentiary use requires your own legal review.
