@@ -88,13 +88,13 @@ novyx stats
 novyx dashboard
 ```
 
-### Eval
+### Eval (experimental)
 
 ```bash
-# Run health evaluation
+# Run memory-health evaluation when experimental features are enabled
 novyx eval run
 
-# CI/CD gate (exits non-zero if health below threshold)
+# Threshold check; disabled by default unless experimental features are enabled
 novyx eval gate --min-score 70
 ```
 

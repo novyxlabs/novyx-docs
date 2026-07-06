@@ -1,6 +1,6 @@
 ---
 title: "Novyx MCP for Cursor — Setup Guide"
-description: "Add persistent AI memory to Cursor IDE. Semantic search, rollback, audit trails, and knowledge graph via MCP."
+description: "Connect Cursor IDE to Novyx MCP for local memory context, cloud governed actions, audit evidence, and recovery helpers."
 ---
 
 # Cursor

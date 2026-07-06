@@ -1,7 +1,7 @@
 ---
 sidebar_position: 18
 title: "Novyx API: Usage — 2 Endpoints for Consumption Tracking"
-description: "Track API calls, memory storage, and feature usage. Monitor consumption against plan limits in real time."
+description: "Track API calls, memory storage, rollback usage, and feature availability against the limits currently enforced by the backend."
 ---
 
 # Usage
@@ -9,7 +9,7 @@ description: "Track API calls, memory storage, and feature usage. Monitor consum
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Check your current plan usage, remaining quotas, spend estimates, and feature availability.
+Check the limits currently enforced by the backend. Today this endpoint reports API calls, stored memories, rollback usage, audit retention, and feature flags. It does not yet report protected-action volume, seats, connectors, or approval environments.
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 
@@ -23,16 +23,16 @@ Check your current plan usage, remaining quotas, spend estimates, and feature av
 GET /v1/usage
 ```
 
-Get your current plan usage and limits for the billing period.
+Get your current backend-enforced usage and limits for the billing period.
 
 ### Response fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `tier` | string | Current plan tier |
-| `api_calls` | object | `{ used, limit, unlimited }` |
-| `memories` | object | `{ used, limit, unlimited }` |
-| `rollbacks` | object | `{ used, limit, unlimited }` |
+| `api_calls` | object | `{ current, used, limit, unlimited }` |
+| `memories` | object | `{ current, used, limit, unlimited }` |
+| `rollbacks` | object | `{ current, used, limit, unlimited }` |
 | `audit_retention_days` | number | Audit log retention |
 | `features` | object | Feature flags for your plan |
 | `period` | string | Billing period (`YYYY-MM`) |
@@ -56,8 +56,8 @@ nx = Novyx(api_key="nram_your_key")
 
 usage = nx.usage()
 print(f"Plan: {usage['tier']}")
-print(f"API calls: {usage['api_calls']['used']}/{usage['api_calls']['limit']}")
-print(f"Memories: {usage['memories']['used']}/{usage['memories']['limit']}")
+print(f"API calls: {usage['api_calls']['current']}/{usage['api_calls']['limit']}")
+print(f"Memories: {usage['memories']['current']}/{usage['memories']['limit']}")
 print(f"Pressure: {usage['usage_pressure_level']}")
 ```
 
@@ -71,8 +71,8 @@ const nx = new Novyx({ apiKey: "nram_your_key" });
 
 const usage = await nx.usage();
 console.log(`Plan: ${usage.tier}`);
-console.log(`API calls: ${usage.api_calls.used}/${usage.api_calls.limit}`);
-console.log(`Memories: ${usage.memories.used}/${usage.memories.limit}`);
+console.log(`API calls: ${usage.api_calls.current}/${usage.api_calls.limit}`);
+console.log(`Memories: ${usage.memories.current}/${usage.memories.limit}`);
 ```
 
 </TabItem>
@@ -91,16 +91,16 @@ curl https://novyx-ram-api.fly.dev/v1/usage \
 ```json
 {
   "tier": "starter",
-  "api_calls": { "used": 1250, "limit": 10000, "unlimited": false },
-  "memories": { "used": 87, "limit": 500, "unlimited": false },
-  "rollbacks": { "used": 3, "limit": 50, "unlimited": false },
+  "api_calls": { "current": 1250, "used": 1250, "limit": 50000, "unlimited": false },
+  "memories": { "current": 87, "used": 87, "limit": 50000, "unlimited": false },
+  "rollbacks": { "current": 3, "used": 3, "limit": 50, "unlimited": false },
   "audit_retention_days": 30,
   "features": {
-    "semantic_search": true,
-    "rollback": true,
-    "trace_audit": false,
-    "knowledge_graph": false,
-    "spaces": true
+    "conflict_resolution": true,
+    "knowledge_graph": true,
+    "trace_audit": true,
+    "governance_dashboard": true,
+    "teams": false
   },
   "period": "2026-03",
   "resets_at": "2026-04-01T00:00:00Z",
@@ -113,8 +113,8 @@ curl https://novyx-ram-api.fly.dev/v1/usage \
     "storage_estimate_usd": 0.0
   },
   "quota_percent": {
-    "api_calls": 12.5,
-    "memories": 17.4,
+    "api_calls": 2.5,
+    "memories": 0.2,
     "rollbacks": 6.0
   },
   "upgrade_message": null
@@ -182,20 +182,22 @@ curl https://novyx-ram-api.fly.dev/v1/dashboard \
   "memory_count": 87,
   "tier": "starter",
   "features": {
-    "semantic_search": true,
-    "rollback": true,
-    "trace_audit": false
+    "conflict_resolution": true,
+    "knowledge_graph": true,
+    "trace_audit": true,
+    "governance_dashboard": true,
+    "teams": false
   },
   "usage_percent": {
-    "api_calls": 12.5,
-    "memories": 17.4,
+    "api_calls": 2.5,
+    "memories": 0.2,
     "rollbacks": 6.0
   },
   "pressure": "low",
   "api_calls_today": 42,
   "limits": {
-    "api_calls": 10000,
-    "memories": 500,
+    "api_calls": 50000,
+    "memories": 50000,
     "rollbacks": 50
   },
   "period": "2026-03"

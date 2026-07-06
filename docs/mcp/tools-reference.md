@@ -105,7 +105,7 @@ Time-travel debugging for memory state.
 | Tool | Description | Key Parameters | Tier |
 |------|-------------|----------------|------|
 | `replay_timeline` | Get the full timeline of memory operations. The tape you scrub through. | `since` (ISO str), `until` (ISO str), `operations` (comma-separated str), `limit` (int) | Pro+ |
-| `replay_snapshot` | Reconstruct memory state at a specific point in time. Returns all memories and links as they existed. | `at` (ISO str), `limit` (int) | Pro+ |
+| `replay_snapshot` | Experimental snapshot helper. Reconstructs which memories existed at a timestamp but may back-fill present field values. Disabled by default in production. | `at` (ISO str), `limit` (int) | Pro+ |
 | `replay_lifecycle` | Full biography of a single memory: creation, updates, recalls, links, and deletion. | `memory_id` (str) | Pro+ |
 | `replay_diff` | Diff memory state between two timestamps. Shows added, removed, and modified memories. | `start` (ISO str), `end` (ISO str) | Pro+ |
 | `replay_memory` | Get the full chronological history of a single memory. | `memory_id` (str) | Pro+ |
@@ -125,9 +125,9 @@ Memory intelligence -- consolidation, reinforcement, and insights.
 | Tool | Description | Key Parameters | Tier |
 |------|-------------|----------------|------|
 | `cortex_status` | Get Cortex status: enabled state, last run time, consolidation/reinforcement stats. | — | Pro+ |
-| `cortex_run` | Manually trigger a Cortex cycle. Merges duplicates and adjusts importance based on recall frequency. | — | Pro+ |
+| `cortex_run` | Experimental memory-maintenance cycle. Disabled by default unless experimental features are enabled. | — | Pro+ |
 | `cortex_config` | Get the current Cortex configuration: thresholds, decay rates, cycle schedule. | — | Pro+ |
-| `cortex_insights` | List auto-generated memory insights. Cortex detects patterns across memories. | `limit` (int) | Enterprise |
+| `cortex_insights` | List experimental synthetic memory insights when Cortex is enabled. | `limit` (int) | Enterprise |
 
 ---
 
@@ -142,7 +142,7 @@ Memory quality scoring and CI gates.
 | Tool | Description | Key Parameters | Tier |
 |------|-------------|----------------|------|
 | `eval_run` | Run a memory health evaluation. Scores quality on a 0-1 scale based on staleness, conflicts, and superseded memories. | `min_score` (float) | Starter+ |
-| `eval_gate` | CI gate: pass or fail based on memory health score. Use in CI/CD pipelines. | `min_score` (float) | Starter+ |
+| `eval_gate` | Experimental memory-health threshold check. Disabled by default unless experimental features are enabled. | `min_score` (float) | Pro+ |
 | `eval_history` | List past evaluation runs. Track quality over time. | `limit` (int) | Starter+ |
 | `eval_drift` | Detect memory drift over a time period. Shows creates, deletes, and updates. | `days` (int) | Starter+ |
 

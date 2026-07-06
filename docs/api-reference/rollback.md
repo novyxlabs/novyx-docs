@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
-title: "Novyx API: Rollback — Point-in-Time Memory Recovery"
-description: "Roll back agent memories to any previous state. Undo corrupted writes, recover from bad data, and restore memory integrity."
+title: "Novyx API: Rollback — Memory Recovery Helpers"
+description: "Preview and execute memory rollback helpers. External side effects require compensation and are not automatically undone."
 ---
 
 # Rollback
@@ -9,24 +9,24 @@ description: "Roll back agent memories to any previous state. Undo corrupted wri
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Point-in-time restore for your agent's memory. Preview what will change before executing. Rollback surgically removes memories created after the target timestamp and restores memories deleted after it — like `git reset` for agent state.
+Rollback is a memory-layer recovery helper. Preview what will change before executing. It can remove memories created after the target timestamp and restore memories deleted after the target when the backend has enough history. It does not transactionally restore full agent state, policy snapshots, connector bindings, or external side effects.
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 
-**Plan limits:** Free: 10 rollbacks/mo · Starter: 50/mo · Pro+: unlimited
+**Current backend limits:** Free: 10 rollbacks/mo · Starter: 50/mo · Pro+: unlimited
 
 ---
 
-## Magic Rollback
+## Execute Rollback
 
 ```
 POST /v1/rollback
 ```
 
-Rollback all memories to a specific point in time. This is a destructive operation — memories created after the target are removed, and memories deleted after the target are restored.
+Execute a memory rollback toward a target timestamp. This is a destructive memory operation: memories created after the target may be removed, and memories deleted after the target may be restored when recoverable from stored history.
 
 :::tip Always preview first
-Use [Preview Rollback](#preview-rollback) to see what will change before executing. Rollbacks cannot be undone.
+Use [Preview Rollback](#preview-rollback) to see what will change before executing. Treat rollback as an incident-recovery helper, not as a transactional undo guarantee.
 :::
 
 ### Request body
@@ -40,7 +40,7 @@ Use [Preview Rollback](#preview-rollback) to see what will change before executi
 | Field | Type | Description |
 |-------|------|-------------|
 | `success` | boolean | Whether the rollback succeeded |
-| `rolled_back_to` | string | Target timestamp the rollback restored to |
+| `rolled_back_to` | string | Target timestamp requested for rollback |
 | `artifacts_restored` | number | Artifacts restored (were deleted after target) |
 | `operations_undone` | number | Operations undone (were created after target) |
 | `message` | string | Human-readable summary of the rollback |
@@ -201,7 +201,7 @@ curl "https://novyx-ram-api.fly.dev/v1/rollback/preview?target=2026-03-09T12:00:
 
 ## Compensation Plans
 
-When a rollback affects memories that triggered side effects (API calls, webhook fires, external writes), Novyx can generate a compensation plan — a list of reversal actions to undo those side effects.
+When memory rollback intersects with actions that triggered side effects (API calls, webhook fires, external writes), Novyx can expose a compensation plan: reviewable reversal steps for an operator to execute or acknowledge. Compensation plans do not automatically undo every side effect.
 
 Compensation plans are managed through the [Compensations router](/api-reference/compensations). The workflow:
 
@@ -229,7 +229,7 @@ For rollbacks with side effects (Pro+):
 
 ```
 1. Preview compensation plan              → See reversal actions
-2. Execute rollback                       → Restore memory state
-3. Work through compensation actions      → Undo external side effects
+2. Execute rollback                       → Apply memory-layer recovery
+3. Work through compensation actions      → Review external side-effect remediation
 4. Acknowledge each action                → Mark as done/failed/skipped
 ```

@@ -36,7 +36,7 @@ By default, novyx-mcp uses a local SQLite database at `~/.novyx/local.db`. No si
 
 ### Cloud Mode (API Key)
 
-Set `NOVYX_API_KEY` to enable cloud sync, audit trails, rollback, and sharing across machines:
+Set `NOVYX_API_KEY` to enable cloud sync, governed actions, shared audit evidence, recovery helpers, and sharing across machines:
 
 ```json
 {
@@ -54,7 +54,7 @@ Set `NOVYX_API_KEY` to enable cloud sync, audit trails, rollback, and sharing ac
 
 Get a free API key at [novyxlabs.com](https://novyxlabs.com) (5,000 memories, no credit card).
 
-### Available Tools (64)
+### Available Tools
 
 | Tool | What It Does |
 |------|-------------|
@@ -69,10 +69,10 @@ Get a free API key at [novyxlabs.com](https://novyxlabs.com) (5,000 memories, no
 | `link_memories` | Create semantic links between memories |
 | `create_space` | Create a context space for organizing memories |
 | `share_space` | Share a context space with another user |
-| `cortex_run` | Run autonomous memory maintenance |
-| `cortex_insights` | Get AI-generated insights from memory patterns |
+| `cortex_run` | Experimental memory-maintenance helper; disabled by default in production |
+| `cortex_insights` | Experimental synthetic memory insights; disabled by default in production |
 | `replay_timeline` | View memory timeline for time-travel debugging |
-| `replay_snapshot` | Point-in-time snapshot of memory state |
+| `replay_snapshot` | Experimental memory snapshot helper; not a full values-at-time restore |
 | `replay_diff` | Compare memory state between two points |
 | `replay_lifecycle` | Track a single memory's full history |
 | `memory_stats` | Usage statistics |
