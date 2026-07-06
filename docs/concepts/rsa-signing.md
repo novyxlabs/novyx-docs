@@ -1,9 +1,9 @@
 ---
-title: "Novyx RSA Signing — Tamper-Proof Audit Trails"
-description: "How Novyx uses RSA signatures to prove memory authenticity. Verify that audit entries haven't been modified after creation."
+title: "Novyx RSA Signing — Tamper-Evident Audit Trails"
+description: "How Novyx uses RSA signatures to make audit-entry changes detectable. Verify integrity without overstating legal guarantees."
 ---
 
-# Rsa Signing
+# RSA Signing
 
 :::note Coming soon
 This section is being migrated. Check the [main docs](https://www.novyxlabs.com/docs) in the meantime.

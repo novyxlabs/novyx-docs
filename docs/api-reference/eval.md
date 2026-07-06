@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
-title: "Novyx API: Eval — 7 Endpoints for Memory Quality Gates"
-description: "Memory health scoring, baseline regression testing, drift analysis, and CI/CD quality gates for agent memory systems."
+title: "Novyx API: Eval — Experimental Memory Health Scoring"
+description: "Experimental memory health scoring endpoints. Disabled by default unless NOVYX_ENABLE_EXPERIMENTAL is explicitly enabled."
 ---
 
 # Eval
@@ -9,13 +9,13 @@ description: "Memory health scoring, baseline regression testing, drift analysis
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Eval router scores the health of your memory store, tracks drift over time, and provides a CI/CD gate to fail builds when memory quality drops below a threshold. Set recall baselines to catch regressions.
+The Eval router is an experimental memory-health surface. In the current backend it is disabled by default unless `NOVYX_ENABLE_EXPERIMENTAL=1` is set. It scores memory hygiene signals such as staleness, conflicts, substring-style recall baselines, and drift. It is not a model-evals product and should not be presented as a production AI quality gate.
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 
-**Tier:** All (gate requires Pro+, drift detail requires Pro+)
+**Availability:** Experimental and off by default. Requires `NOVYX_ENABLE_EXPERIMENTAL=1` before tier checks apply.
 
-**Plan limits:** Free: 3 runs/day, 1 baseline · Starter: 30 runs/day, 5 baselines · Pro+: unlimited
+**Plan limits when enabled:** Free: 3 runs/day, 1 baseline · Starter: 30 runs/day, 5 baselines · Pro+: unlimited. `eval_gate` requires Pro+.
 
 ---
 
@@ -25,7 +25,7 @@ The Eval router scores the health of your memory store, tracks drift over time, 
 POST /v1/eval/run
 ```
 
-Run a health evaluation of your memory store. Returns an overall health score (0–100) with a breakdown across four dimensions.
+Run an experimental memory-health evaluation. Returns an overall health score (0–100) with a breakdown across memory hygiene dimensions.
 
 ### Request body
 
@@ -123,6 +123,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/eval/run \
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 403 | `novyx_ram.v1.experimental.disabled` | Eval is disabled unless `NOVYX_ENABLE_EXPERIMENTAL=1` |
 | 429 | `RATE_LIMITED` | Daily eval limit exceeded |
 
 ---
@@ -133,10 +134,10 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/eval/run \
 POST /v1/eval/gate
 ```
 
-Run an eval with a required minimum score. Returns `200` on pass, `422` on fail — designed for CI/CD pipelines.
+Run an experimental memory-health check with a required minimum score. Returns `200` on pass and `422` on fail when the experimental router is enabled.
 
 :::tip CI/CD integration
-Use this in your deployment pipeline to block deploys when memory quality drops:
+Use only in non-production or explicitly opted-in workflows while this surface remains experimental:
 ```bash
 curl -sf -X POST .../v1/eval/gate -d '{"min_score": 80}' || exit 1
 ```
@@ -191,6 +192,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/eval/gate \
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 403 | `novyx_ram.v1.experimental.disabled` | Eval is disabled unless `NOVYX_ENABLE_EXPERIMENTAL=1` |
 | 403 | `FEATURE_NOT_AVAILABLE` | Requires Pro+ plan |
 | 422 | `GATE_FAILED` | Health score below `min_score` (response body includes full eval) |
 
@@ -261,7 +263,7 @@ curl "https://novyx-ram-api.fly.dev/v1/eval/history?limit=10" \
 GET /v1/eval/drift
 ```
 
-Analyze how your memory store has changed over a time window.
+Analyze how your memory store has changed over a time window when the experimental router is enabled.
 
 ### Query parameters
 
@@ -316,6 +318,7 @@ curl "https://novyx-ram-api.fly.dev/v1/eval/drift?days=14" \
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 403 | `novyx_ram.v1.experimental.disabled` | Eval is disabled unless `NOVYX_ENABLE_EXPERIMENTAL=1` |
 | 403 | `FEATURE_NOT_AVAILABLE` | Requires Starter+ plan |
 
 ---
@@ -326,7 +329,7 @@ curl "https://novyx-ram-api.fly.dev/v1/eval/drift?days=14" \
 POST /v1/eval/baselines
 ```
 
-Create a recall baseline — a query/expected-answer pair that eval checks on every run.
+Create a memory recall baseline: a query and expected observation that the experimental eval run checks against memory retrieval results.
 
 ### Request body
 

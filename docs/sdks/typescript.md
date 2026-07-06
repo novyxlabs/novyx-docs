@@ -92,11 +92,11 @@ await nx.spaceMemories(spaceId, { limit, offset })
 await nx.shareContext({ tags, targetTenant })
 ```
 
-### Replay (Pro+)
+### Replay (Pro+; replaySnapshot experimental)
 
 ```typescript
 await nx.replayTimeline({ limit, offset })
-await nx.replaySnapshot(at, { limit })
+await nx.replaySnapshot(at, { limit }) // Experimental; not a full values-at-time restore
 await nx.replayMemory(memoryId)
 await nx.replayRecall(query, at, { limit })
 await nx.replayDiff(fromTs, toTs)
@@ -106,15 +106,15 @@ await nx.replayDiff(fromTs, toTs)
 
 ```typescript
 await nx.cortexStatus()
-await nx.cortexRun()
-await nx.cortexInsights({ limit, offset })
+await nx.cortexRun()              // Experimental; disabled by default
+await nx.cortexInsights({ limit, offset }) // Experimental synthetic insights
 ```
 
 ### Eval (experimental)
 
 ```typescript
 await nx.evalRun({ minScore })
-await nx.evalGate(minScore)        // Throws if health below threshold
+await nx.evalGate(minScore)        // Experimental; disabled by default
 await nx.evalHistory({ limit })
 await nx.evalDrift({ days })
 ```

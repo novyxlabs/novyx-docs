@@ -1,7 +1,7 @@
 ---
 sidebar_position: 9
-title: "Novyx API: Cortex — Autonomous Memory Maintenance"
-description: "Self-managing memory consolidation, reinforcement, and decay. Configure autonomous maintenance with tunable parameters."
+title: "Novyx API: Cortex — Experimental Memory Maintenance"
+description: "Experimental memory maintenance endpoints. Disabled by default unless NOVYX_ENABLE_EXPERIMENTAL is explicitly enabled."
 ---
 
 # Cortex
@@ -9,11 +9,11 @@ description: "Self-managing memory consolidation, reinforcement, and decay. Conf
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Cortex is Novyx's autonomous memory maintenance engine. It consolidates duplicate memories, reinforces frequently-recalled ones, decays stale memories, and generates AI-powered insights. You can configure each behavior independently and trigger cycles manually or let them run on schedule.
+Cortex is an experimental memory-maintenance surface. In the current backend it is disabled by default unless `NOVYX_ENABLE_EXPERIMENTAL=1` is set. Core marks it experimental because autonomous insights are template-based and consolidation/decay behavior is not covered by an end-to-end production test.
 
 **Base URL:** `https://novyx-ram-api.fly.dev`
 
-**Tier:** Pro+ (Insights require Enterprise)
+**Availability:** Experimental and off by default. Requires `NOVYX_ENABLE_EXPERIMENTAL=1` before tier checks apply. Cortex features are Pro+ when enabled; insights require Enterprise.
 
 **Backend:** Requires Postgres
 
@@ -25,12 +25,12 @@ The Cortex is Novyx's autonomous memory maintenance engine. It consolidates dupl
 POST /v1/cortex/run
 ```
 
-Trigger a manual Cortex cycle. Runs consolidation, reinforcement, and decay in sequence, then generates insights if enabled.
+Trigger a manual Cortex cycle when the experimental router is enabled. The response reports consolidation, reinforcement, decay, and insight counters from the run.
 
 - **Consolidation:** Merges memories above the similarity threshold (default 90%)
 - **Reinforcement:** Boosts importance of frequently-recalled memories
 - **Decay:** Reduces importance of old, unused memories past the decay age
-- **Insights:** Generates synthetic memories from detected patterns (Enterprise only)
+- **Insights:** Returns template-based synthetic memory insights when enabled (Enterprise only)
 
 ### Response fields
 
@@ -99,6 +99,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/cortex/run \
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 403 | `novyx_ram.v1.experimental.disabled` | Cortex is disabled unless `NOVYX_ENABLE_EXPERIMENTAL=1` |
 | 403 | `FEATURE_NOT_AVAILABLE` | Requires Pro+ plan |
 | 501 | `REQUIRES_POSTGRES` | Postgres backend required |
 
@@ -110,7 +111,7 @@ curl -X POST https://novyx-ram-api.fly.dev/v1/cortex/run \
 GET /v1/cortex/status
 ```
 
-Get the current Cortex status including whether it's enabled, the last run timestamp, and run statistics.
+Get Cortex status, including whether the tenant-level Cortex config is enabled, the last run timestamp, and run statistics. The endpoint itself is still blocked unless experimental features are enabled.
 
 ### Response fields
 
@@ -183,6 +184,7 @@ curl https://novyx-ram-api.fly.dev/v1/cortex/status \
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 403 | `novyx_ram.v1.experimental.disabled` | Cortex is disabled unless `NOVYX_ENABLE_EXPERIMENTAL=1` |
 | 403 | `FEATURE_NOT_AVAILABLE` | Requires Pro+ plan |
 | 501 | `REQUIRES_POSTGRES` | Postgres backend required |
 
@@ -194,7 +196,7 @@ curl https://novyx-ram-api.fly.dev/v1/cortex/status \
 GET /v1/cortex/config
 ```
 
-Retrieve the current Cortex configuration.
+Retrieve the current Cortex configuration when the experimental router is enabled.
 
 ### Response fields
 
@@ -263,6 +265,7 @@ curl https://novyx-ram-api.fly.dev/v1/cortex/config \
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 403 | `novyx_ram.v1.experimental.disabled` | Cortex is disabled unless `NOVYX_ENABLE_EXPERIMENTAL=1` |
 | 403 | `FEATURE_NOT_AVAILABLE` | Requires Pro+ plan |
 | 501 | `REQUIRES_POSTGRES` | Postgres backend required |
 
@@ -274,7 +277,7 @@ curl https://novyx-ram-api.fly.dev/v1/cortex/config \
 PATCH /v1/cortex/config
 ```
 
-Update Cortex configuration. Send only the fields you want to change.
+Update Cortex configuration when the experimental router is enabled. Send only the fields you want to change.
 
 ### Request body
 
@@ -338,6 +341,7 @@ curl -X PATCH https://novyx-ram-api.fly.dev/v1/cortex/config \
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 403 | `novyx_ram.v1.experimental.disabled` | Cortex is disabled unless `NOVYX_ENABLE_EXPERIMENTAL=1` |
 | 403 | `FEATURE_NOT_AVAILABLE` | Requires Pro+ plan or Enterprise for insights |
 | 501 | `REQUIRES_POSTGRES` | Postgres backend required |
 
@@ -349,10 +353,10 @@ curl -X PATCH https://novyx-ram-api.fly.dev/v1/cortex/config \
 GET /v1/cortex/insights
 ```
 
-List AI-generated insight memories created by the Cortex. These are synthetic memories derived from patterns detected across your memory store.
+List synthetic insight memories created by Cortex when the experimental router is enabled. Treat these as memory-maintenance hints, not autonomous production recommendations.
 
 :::note Enterprise only
-Insight generation requires an Enterprise plan. Enable it via `PATCH /v1/cortex/config`.
+Insight generation requires Enterprise after experimental features are enabled. Enable the tenant config via `PATCH /v1/cortex/config`.
 :::
 
 ### Query parameters
@@ -432,5 +436,6 @@ curl "https://novyx-ram-api.fly.dev/v1/cortex/insights?limit=10" \
 
 | Status | Code | Cause |
 |--------|------|-------|
+| 403 | `novyx_ram.v1.experimental.disabled` | Cortex is disabled unless `NOVYX_ENABLE_EXPERIMENTAL=1` |
 | 403 | `FEATURE_NOT_AVAILABLE` | Requires Enterprise plan |
 | 501 | `REQUIRES_POSTGRES` | Postgres backend required |

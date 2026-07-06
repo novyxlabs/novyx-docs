@@ -105,7 +105,7 @@ memories = await nx.recall("user preferences")
 | Method | Description |
 |--------|-------------|
 | `nx.replay_timeline(*, limit, offset)` | Full timeline of memory changes |
-| `nx.replay_snapshot(at, *, limit)` | Point-in-time memory snapshot |
+| `nx.replay_snapshot(at, *, limit)` | Experimental memory snapshot helper; not a full values-at-time restore |
 | `nx.replay_memory(memory_id)` | Full lifecycle of a single memory |
 | `nx.replay_recall(query, at, *, limit)` | "What would recall have returned at time X?" |
 | `nx.replay_diff(from_ts, to_ts)` | Compare memory state between two timestamps |
@@ -118,15 +118,15 @@ memories = await nx.recall("user preferences")
 | `nx.cortex_status()` | Check Cortex analysis status |
 | `nx.cortex_config()` | Get current Cortex configuration |
 | `nx.cortex_update_config(**kwargs)` | Update Cortex settings |
-| `nx.cortex_run()` | Trigger autonomous memory maintenance |
-| `nx.cortex_insights(*, limit, offset)` | Get AI-generated insights |
+| `nx.cortex_run()` | Trigger experimental memory maintenance when enabled |
+| `nx.cortex_insights(*, limit, offset)` | Get experimental synthetic memory insights when enabled |
 
 ### Eval (experimental)
 
 | Method | Description |
 |--------|-------------|
 | `nx.eval_run(*, min_score)` | Run memory health evaluation |
-| `nx.eval_gate(min_score)` | CI/CD quality gate — fails if health below threshold |
+| `nx.eval_gate(min_score)` | Experimental memory-health threshold check; disabled by default |
 | `nx.eval_history(*, limit, offset)` | Past evaluation results |
 | `nx.eval_drift(*, days)` | Memory drift analysis over time |
 | `nx.eval_baseline_create(query, expected)` | Create a recall baseline |

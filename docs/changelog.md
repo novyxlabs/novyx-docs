@@ -45,11 +45,11 @@ A five-phase upgrade to Novyx Control that turns governance into a first-class, 
 
 ## v3.0.0 — March 8, 2026
 
-**Eval System, AsyncNovyx & CI/CD Quality Gates**
+**Eval System, AsyncNovyx & Experimental Memory-Health Gates**
 
-- **Eval system:** Memory health scoring with composite score (0–100) from recall consistency, drift, conflicts, and staleness
-- **CI/CD quality gate:** `POST /v1/eval/gate` blocks deploys when memory health drops below your threshold (Pro+)
-- **Baseline regression testing:** Save recall queries as baselines, detect when results degrade across eval runs
+- **Eval system:** Experimental memory health scoring with composite score (0–100) from recall consistency, drift, conflicts, and staleness
+- **Eval gate:** `POST /v1/eval/gate` was introduced as an experimental memory-health threshold check. In the current backend, eval is disabled by default unless `NOVYX_ENABLE_EXPERIMENTAL=1` is set.
+- **Baseline checks:** Save recall queries as baselines for experimental memory-health runs
 - **Drift analysis:** Track how memory composition changes over time — count deltas, importance shifts, topic churn
 - **AsyncNovyx:** Full async client with httpx — `pip install novyx[async]`. Complete parity with sync client
 - **Eval history:** Track health scores over time with per-tier retention (Free: 7d, Starter: 30d, Pro: 90d, Enterprise: 365d)
