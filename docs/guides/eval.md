@@ -1,6 +1,6 @@
 ---
-title: "Novyx Eval Guide — Memory Quality Gates for CI/CD"
-description: "Set up memory health scoring and regression testing. Automate quality gates in your CI/CD pipeline with Novyx Eval."
+title: "Novyx Eval Guide — Experimental Memory Health Scoring"
+description: "Experimental memory health scoring guide. Eval is disabled by default unless NOVYX_ENABLE_EXPERIMENTAL=1 is explicitly enabled."
 ---
 
 # Eval
